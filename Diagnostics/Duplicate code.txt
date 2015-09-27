@@ -1,0 +1,19 @@
+Code Clones
+
+Clone Group		Clone Count
+Medium Match 1 (1 File)		3
+	MainWindow:loadHistogram - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\MainWindow.xaml.cs lines 177-189	
+	MainWindow:loadHistogram - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\MainWindow.xaml.cs lines 194-206	
+	MainWindow:loadHistogram - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\MainWindow.xaml.cs lines 211-223	
+Medium Match 2 (2 Files)		2
+	MainWindow:fft - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\MainWindow.xaml.cs lines 774-814	
+	timefreq:fft - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\timefreq.cs lines 113-154	
+Medium Match 3 (1 File)		2
+	MainWindow:loadHistogram - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\MainWindow.xaml.cs lines 145-172	
+	MainWindow:loadHistogram - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\MainWindow.xaml.cs lines 194-223	
+Medium Match 4 (1 File)		2
+	MainWindow:stringMatch - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\MainWindow.xaml.cs lines 1043-1109	
+	MainWindow:stringMatch - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\MainWindow.xaml.cs lines 913-975	
+Weak Match 1 (1 File)		2
+	MainWindow:onsetDetection - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\MainWindow.xaml.cs lines 522-564	
+	MainWindow:onsetDetection - G:\GitHub\INB375-Parallel-Computing\Digital Music Parallelised\WpfApplication1\MainWindow.xaml.cs lines 570-617	
