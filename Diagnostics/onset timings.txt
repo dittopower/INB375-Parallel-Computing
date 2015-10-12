@@ -1,0 +1,46 @@
+Onset setup:
+	0ms
+	49749ns
+Onset loop 1:
+	276ms
+	273529179ns
+Onset loop 2:
+	0ms
+	291249ns
+Onset loop 3:
+	0ms
+	14007ns
+Onset loop 4:
+	0ms
+	2898ns
+onset mm loop:
+	5981ms
+	5909716554ns
+onset loop 6:
+	0ms
+	764106ns
+onset loop 7:
+	0ms
+	3864ns
+onset loop 8:
+	0ms
+	1932ns
+onset stuff:
+	1ms
+	1793379ns
+onset loop 9:
+	0ms
+	20769ns
+onset loop 10:
+	5ms
+	5641923ns
+onset loop 11:
+	6ms
+	6894342ns
+onset loop 12:
+	3ms
+	3777543ns
+onset loop 13:
+	3ms
+	3847095ns
+

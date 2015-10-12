@@ -1,0 +1,1439 @@
+Onset mm - ll:
+	2ms
+	2111193ns
+Onset mm - kk:
+	0ms
+	116403ns
+Onset mm - Y = fft:
+	6ms
+	6662502ns
+Onset mm - jj:
+	0ms
+	267582ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	3ms
+	3395490ns
+Onset mm - kk:
+	0ms
+	281106ns
+Onset mm - Y = fft:
+	12ms
+	12334854ns
+Onset mm - jj:
+	0ms
+	460782ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	14ms
+	14100219ns
+Onset mm - kk:
+	0ms
+	903693ns
+Onset mm - Y = fft:
+	59ms
+	58451211ns
+Onset mm - jj:
+	1ms
+	1917027ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	7115556ns
+Onset mm - kk:
+	0ms
+	545307ns
+Onset mm - Y = fft:
+	27ms
+	26705553ns
+Onset mm - jj:
+	1ms
+	1088199ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	7036344ns
+Onset mm - kk:
+	0ms
+	494592ns
+Onset mm - Y = fft:
+	30ms
+	29807862ns
+Onset mm - jj:
+	0ms
+	917700ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	6ms
+	6795810ns
+Onset mm - kk:
+	0ms
+	575253ns
+Onset mm - Y = fft:
+	26ms
+	26247669ns
+Onset mm - jj:
+	0ms
+	906591ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	0ms
+	422142ns
+Onset mm - kk:
+	0ms
+	29463ns
+Onset mm - Y = fft:
+	1ms
+	1084335ns
+Onset mm - jj:
+	0ms
+	62790ns
+Onset mm - div:
+	0ms
+	1449ns
+Onset mm - last:
+	0ms
+	966ns
+
+
+Onset mm - ll:
+	3ms
+	3504165ns
+Onset mm - kk:
+	0ms
+	278691ns
+Onset mm - Y = fft:
+	12ms
+	12332922ns
+Onset mm - jj:
+	0ms
+	452088ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	7ms
+	7229061ns
+Onset mm - kk:
+	0ms
+	468993ns
+Onset mm - Y = fft:
+	26ms
+	25990713ns
+Onset mm - jj:
+	0ms
+	916251ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	0ms
+	466095ns
+Onset mm - kk:
+	0ms
+	33327ns
+Onset mm - Y = fft:
+	1ms
+	1318107ns
+Onset mm - jj:
+	0ms
+	64722ns
+Onset mm - div:
+	0ms
+	1932ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	7052766ns
+Onset mm - kk:
+	0ms
+	446292ns
+Onset mm - Y = fft:
+	26ms
+	26337990ns
+Onset mm - jj:
+	1ms
+	1023477ns
+Onset mm - div:
+	0ms
+	222180ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	17ms
+	17496192ns
+Onset mm - kk:
+	1ms
+	1110417ns
+Onset mm - Y = fft:
+	66ms
+	66144435ns
+Onset mm - jj:
+	2ms
+	2244984ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	2898ns
+
+
+Onset mm - ll:
+	14ms
+	13932135ns
+Onset mm - kk:
+	1ms
+	1035552ns
+Onset mm - Y = fft:
+	58ms
+	58235310ns
+Onset mm - jj:
+	1ms
+	1789515ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	14ms
+	13936482ns
+Onset mm - kk:
+	1ms
+	1000293ns
+Onset mm - Y = fft:
+	66ms
+	65753688ns
+Onset mm - jj:
+	2ms
+	2512083ns
+Onset mm - div:
+	0ms
+	3381ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	10ms
+	10347309ns
+Onset mm - kk:
+	0ms
+	627900ns
+Onset mm - Y = fft:
+	36ms
+	35833770ns
+Onset mm - jj:
+	1ms
+	1096410ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	1ms
+	1014300ns
+Onset mm - kk:
+	0ms
+	98049ns
+Onset mm - Y = fft:
+	2ms
+	2718324ns
+Onset mm - jj:
+	0ms
+	136206ns
+Onset mm - div:
+	0ms
+	1449ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	8ms
+	8368941ns
+Onset mm - kk:
+	0ms
+	532749ns
+Onset mm - Y = fft:
+	29ms
+	29274630ns
+Onset mm - jj:
+	1ms
+	1059219ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	4ms
+	3967362ns
+Onset mm - kk:
+	0ms
+	260337ns
+Onset mm - Y = fft:
+	13ms
+	13454931ns
+Onset mm - jj:
+	0ms
+	538545ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	15ms
+	15791685ns
+Onset mm - kk:
+	1ms
+	1038450ns
+Onset mm - Y = fft:
+	62ms
+	62059704ns
+Onset mm - jj:
+	2ms
+	2070621ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	7450275ns
+Onset mm - kk:
+	0ms
+	479619ns
+Onset mm - Y = fft:
+	29ms
+	28910448ns
+Onset mm - jj:
+	0ms
+	980007ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	7ms
+	7842471ns
+Onset mm - kk:
+	0ms
+	624036ns
+Onset mm - Y = fft:
+	29ms
+	29219085ns
+Onset mm - jj:
+	0ms
+	946197ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	16ms
+	16716630ns
+Onset mm - kk:
+	0ms
+	946680ns
+Onset mm - Y = fft:
+	59ms
+	58467633ns
+Onset mm - jj:
+	1ms
+	1798692ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	14ms
+	14104566ns
+Onset mm - kk:
+	0ms
+	783909ns
+Onset mm - Y = fft:
+	59ms
+	59003763ns
+Onset mm - jj:
+	1ms
+	1889496ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	13ms
+	13584858ns
+Onset mm - kk:
+	1ms
+	999327ns
+Onset mm - Y = fft:
+	58ms
+	57534477ns
+Onset mm - jj:
+	1ms
+	1830087ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	8ms
+	8466990ns
+Onset mm - kk:
+	0ms
+	597954ns
+Onset mm - Y = fft:
+	30ms
+	29955660ns
+Onset mm - jj:
+	1ms
+	1073709ns
+Onset mm - div:
+	0ms
+	3381ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	3ms
+	3857238ns
+Onset mm - kk:
+	0ms
+	241500ns
+Onset mm - Y = fft:
+	12ms
+	12546408ns
+Onset mm - jj:
+	0ms
+	536613ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	7596141ns
+Onset mm - kk:
+	0ms
+	510048ns
+Onset mm - Y = fft:
+	28ms
+	28211064ns
+Onset mm - jj:
+	1ms
+	1048593ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	14ms
+	14686581ns
+Onset mm - kk:
+	0ms
+	846216ns
+Onset mm - Y = fft:
+	64ms
+	63407274ns
+Onset mm - jj:
+	2ms
+	2063859ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	31ms
+	31111962ns
+Onset mm - kk:
+	1ms
+	1589070ns
+Onset mm - Y = fft:
+	142ms
+	141023925ns
+Onset mm - jj:
+	4ms
+	4277931ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	16ms
+	15849645ns
+Onset mm - kk:
+	2ms
+	2319849ns
+Onset mm - Y = fft:
+	62ms
+	61710978ns
+Onset mm - jj:
+	1ms
+	1929102ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	27ms
+	27523755ns
+Onset mm - kk:
+	1ms
+	1533042ns
+Onset mm - Y = fft:
+	154ms
+	152897031ns
+Onset mm - jj:
+	4ms
+	3981852ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	17ms
+	17126697ns
+Onset mm - kk:
+	1ms
+	1097376ns
+Onset mm - Y = fft:
+	68ms
+	67329717ns
+Onset mm - jj:
+	1ms
+	1937313ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	34ms
+	33901287ns
+Onset mm - kk:
+	1ms
+	1798692ns
+Onset mm - Y = fft:
+	127ms
+	125914719ns
+Onset mm - jj:
+	3ms
+	3860619ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	2415ns
+
+
+Onset mm - ll:
+	28ms
+	28503279ns
+Onset mm - kk:
+	1ms
+	1830570ns
+Onset mm - Y = fft:
+	164ms
+	162966615ns
+Onset mm - jj:
+	3ms
+	3693501ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	15ms
+	15491742ns
+Onset mm - kk:
+	0ms
+	811923ns
+Onset mm - Y = fft:
+	62ms
+	61525506ns
+Onset mm - jj:
+	1ms
+	1838298ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	14ms
+	13859202ns
+Onset mm - kk:
+	0ms
+	760725ns
+Onset mm - Y = fft:
+	60ms
+	59359734ns
+Onset mm - jj:
+	1ms
+	1876455ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	17ms
+	16844142ns
+Onset mm - kk:
+	1ms
+	1017198ns
+Onset mm - Y = fft:
+	57ms
+	56356440ns
+Onset mm - jj:
+	2ms
+	2089941ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	15ms
+	15650166ns
+Onset mm - kk:
+	0ms
+	954891ns
+Onset mm - Y = fft:
+	57ms
+	56823018ns
+Onset mm - jj:
+	1ms
+	1789515ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	7132461ns
+Onset mm - kk:
+	0ms
+	478170ns
+Onset mm - Y = fft:
+	26ms
+	26051571ns
+Onset mm - jj:
+	0ms
+	922530ns
+Onset mm - div:
+	0ms
+	1932ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	8ms
+	8033256ns
+Onset mm - kk:
+	0ms
+	491211ns
+Onset mm - Y = fft:
+	26ms
+	26373249ns
+Onset mm - jj:
+	0ms
+	951510ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	30ms
+	30275889ns
+Onset mm - kk:
+	2ms
+	2219385ns
+Onset mm - Y = fft:
+	148ms
+	146912178ns
+Onset mm - jj:
+	4ms
+	3962532ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	15ms
+	15609594ns
+Onset mm - kk:
+	1ms
+	1088682ns
+Onset mm - Y = fft:
+	78ms
+	77801640ns
+Onset mm - jj:
+	2ms
+	2103465ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	7ms
+	7868553ns
+Onset mm - kk:
+	0ms
+	590226ns
+Onset mm - Y = fft:
+	29ms
+	29150016ns
+Onset mm - jj:
+	1ms
+	1055838ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	15ms
+	15397074ns
+Onset mm - kk:
+	0ms
+	841386ns
+Onset mm - Y = fft:
+	60ms
+	59795400ns
+Onset mm - jj:
+	1ms
+	1846026ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	15ms
+	15428469ns
+Onset mm - kk:
+	1ms
+	1077090ns
+Onset mm - Y = fft:
+	62ms
+	61622106ns
+Onset mm - jj:
+	1ms
+	1790481ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	14ms
+	13901223ns
+Onset mm - kk:
+	0ms
+	983388ns
+Onset mm - Y = fft:
+	61ms
+	61014492ns
+Onset mm - jj:
+	1ms
+	1812699ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	6917043ns
+Onset mm - kk:
+	0ms
+	482517ns
+Onset mm - Y = fft:
+	26ms
+	26390154ns
+Onset mm - jj:
+	0ms
+	921081ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	6990459ns
+Onset mm - kk:
+	0ms
+	513429ns
+Onset mm - Y = fft:
+	27ms
+	27565293ns
+Onset mm - jj:
+	0ms
+	915768ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	28ms
+	28573797ns
+Onset mm - kk:
+	1ms
+	1968225ns
+Onset mm - Y = fft:
+	130ms
+	128974041ns
+Onset mm - jj:
+	3ms
+	3682875ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	29ms
+	29017191ns
+Onset mm - kk:
+	1ms
+	1601145ns
+Onset mm - Y = fft:
+	136ms
+	134866641ns
+Onset mm - jj:
+	5ms
+	4997118ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	56ms
+	55678308ns
+Onset mm - kk:
+	3ms
+	3081057ns
+Onset mm - Y = fft:
+	288ms
+	285148710ns
+Onset mm - jj:
+	7ms
+	7794654ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	14ms
+	13983816ns
+Onset mm - kk:
+	1ms
+	994014ns
+Onset mm - Y = fft:
+	58ms
+	57307950ns
+Onset mm - jj:
+	1ms
+	1847475ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	2415ns
+
+
+Onset mm - ll:
+	15ms
+	15279222ns
+Onset mm - kk:
+	1ms
+	1205085ns
+Onset mm - Y = fft:
+	58ms
+	57502116ns
+Onset mm - jj:
+	1ms
+	1806903ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	14ms
+	14322399ns
+Onset mm - kk:
+	0ms
+	986286ns
+Onset mm - Y = fft:
+	60ms
+	59920497ns
+Onset mm - jj:
+	2ms
+	2028117ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	15ms
+	15225609ns
+Onset mm - kk:
+	0ms
+	883890ns
+Onset mm - Y = fft:
+	62ms
+	61857810ns
+Onset mm - jj:
+	2ms
+	2104914ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	8ms
+	7945350ns
+Onset mm - kk:
+	0ms
+	525021ns
+Onset mm - Y = fft:
+	28ms
+	28454979ns
+Onset mm - jj:
+	1ms
+	1003191ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	7392798ns
+Onset mm - kk:
+	0ms
+	529851ns
+Onset mm - Y = fft:
+	29ms
+	28794528ns
+Onset mm - jj:
+	1ms
+	1043280ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	15ms
+	15283569ns
+Onset mm - kk:
+	1ms
+	1239378ns
+Onset mm - Y = fft:
+	63ms
+	63115542ns
+Onset mm - jj:
+	2ms
+	2014593ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	16ms
+	16142826ns
+Onset mm - kk:
+	1ms
+	1358679ns
+Onset mm - Y = fft:
+	62ms
+	62154372ns
+Onset mm - jj:
+	1ms
+	1892877ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	31ms
+	30840033ns
+Onset mm - kk:
+	1ms
+	1835400ns
+Onset mm - Y = fft:
+	139ms
+	138019182ns
+Onset mm - jj:
+	4ms
+	4193889ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	15ms
+	15468558ns
+Onset mm - kk:
+	1ms
+	1269807ns
+Onset mm - Y = fft:
+	61ms
+	61180644ns
+Onset mm - jj:
+	2ms
+	2170119ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	15ms
+	15232371ns
+Onset mm - kk:
+	1ms
+	1320039ns
+Onset mm - Y = fft:
+	56ms
+	56247765ns
+Onset mm - jj:
+	1ms
+	1821393ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1449ns
+
+
+Onset mm - ll:
+	27ms
+	27635811ns
+Onset mm - kk:
+	1ms
+	1699194ns
+Onset mm - Y = fft:
+	134ms
+	132757863ns
+Onset mm - jj:
+	4ms
+	4142208ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	15ms
+	15302406ns
+Onset mm - kk:
+	1ms
+	1077090ns
+Onset mm - Y = fft:
+	63ms
+	62624814ns
+Onset mm - jj:
+	2ms
+	2067240ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	7767123ns
+Onset mm - kk:
+	0ms
+	481551ns
+Onset mm - Y = fft:
+	30ms
+	30613989ns
+Onset mm - jj:
+	1ms
+	1060185ns
+Onset mm - div:
+	0ms
+	7245ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	7ms
+	7621740ns
+Onset mm - kk:
+	0ms
+	584430ns
+Onset mm - Y = fft:
+	30ms
+	30468123ns
+Onset mm - jj:
+	1ms
+	1070811ns
+Onset mm - div:
+	0ms
+	4830ns
+Onset mm - last:
+	0ms
+	2415ns
+
+
+Onset mm - ll:
+	15ms
+	15226575ns
+Onset mm - kk:
+	0ms
+	848631ns
+Onset mm - Y = fft:
+	58ms
+	57333066ns
+Onset mm - jj:
+	1ms
+	1928136ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	27ms
+	27655131ns
+Onset mm - kk:
+	1ms
+	1477014ns
+Onset mm - Y = fft:
+	127ms
+	125702682ns
+Onset mm - jj:
+	3ms
+	3858204ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	30ms
+	30557478ns
+Onset mm - kk:
+	1ms
+	1675527ns
+Onset mm - Y = fft:
+	147ms
+	145947144ns
+Onset mm - jj:
+	4ms
+	4251849ns
+Onset mm - div:
+	0ms
+	3381ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	29ms
+	29332590ns
+Onset mm - kk:
+	1ms
+	1792413ns
+Onset mm - Y = fft:
+	145ms
+	143523933ns
+Onset mm - jj:
+	3ms
+	3868347ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	14ms
+	14255745ns
+Onset mm - kk:
+	29ms
+	29205561ns
+Onset mm - Y = fft:
+	60ms
+	59717637ns
+Onset mm - jj:
+	1ms
+	1850373ns
+Onset mm - div:
+	0ms
+	2898ns
+Onset mm - last:
+	0ms
+	1932ns
+
+
+Onset mm - ll:
+	13ms
+	13446237ns
+Onset mm - kk:
+	2ms
+	2160942ns
+Onset mm - Y = fft:
+	75ms
+	74416293ns
+Onset mm - jj:
+	1ms
+	1946007ns
+Onset mm - div:
+	0ms
+	2415ns
+Onset mm - last:
+	0ms
+	1932ns
+
