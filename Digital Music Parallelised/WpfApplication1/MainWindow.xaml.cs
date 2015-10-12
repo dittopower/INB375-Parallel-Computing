@@ -323,6 +323,7 @@ namespace WpfApplication1
 
         public void onsetDetection()
         {
+            Time timer = new Time();
             float[] HFC;
             int starts = 0;
             int stops = 0;
@@ -347,7 +348,7 @@ namespace WpfApplication1
             SolidColorBrush whiteBrush = new SolidColorBrush(Colors.White);
 
             HFC = new float[stftRep.timeFreqData[0].Length];
-
+            timer.next("Onset setup");
             for (int jj = 0; jj < stftRep.timeFreqData[0].Length; jj++)
             {
                 for (int ii = 0; ii < stftRep.wSamp / 2; ii++)
@@ -356,14 +357,14 @@ namespace WpfApplication1
                 }
 
             }
-
+            timer.next("Onset loop 1");
             float maxi = HFC.Max();
 
             for (int jj = 0; jj < stftRep.timeFreqData[0].Length; jj++)
             {
                 HFC[jj] = (float)Math.Pow((HFC[jj] / maxi), 2);
             }
-
+            timer.next("Onset loop 2");
             for (int jj = 0; jj < stftRep.timeFreqData[0].Length; jj++)
             {
                 if (starts > stops)
@@ -384,7 +385,7 @@ namespace WpfApplication1
 
                 }
             }
-
+            timer.next("Onset loop 3");
             if (starts > stops)
             {
                 noteStops.Add(waveIn.data.Length);
@@ -394,12 +395,12 @@ namespace WpfApplication1
             // DETERMINES START AND FINISH TIME OF NOTES BASED ON ONSET DETECTION       
 
             ///*
-
+            timer.start();
             for (int ii = 0; ii < noteStops.Count; ii++)
             {
                 lengths.Add(noteStops[ii] - noteStarts[ii]);
-            }            
-
+            }
+            timer.next("Onset loop 4");
             for (int mm = 0; mm < lengths.Count; mm++)
             {
                 int nearest = (int)Math.Pow(2, Math.Ceiling(Math.Log(lengths[mm], 2)));
