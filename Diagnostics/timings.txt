@@ -1,0 +1,31 @@
+Excution times
+Load Audio:
+	208ms
+	208700464ns
+slider thread:
+	0ms
+	34928ns
+loadWave:
+	142ms
+	142183864ns
+freqDomain:
+	12024ms
+	12009076176ns
+sheetmusic:
+	5ms
+	5922656ns
+onsetDetection:
+	10490ms
+	10477279944ns
+loadImage:
+	13ms
+	13491648ns
+loadHistogram:
+	18ms
+	18242328ns
+playBack:
+	670ms
+	669962936ns
+Other stuff:
+	1ms
+	1797848ns

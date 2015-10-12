@@ -52,15 +52,25 @@ namespace WpfApplication1
             InitializeComponent();
             string filename = openFile("Select Audio (wav) file");
             string xmlfile = openFile("Select Score (xml) file");
+            Time timer = new Time();
             file = new Audio(filename);
-            Thread check = new Thread(new ThreadStart(updateSlider));                     
+            timer.next("Load Audio");
+            Thread check = new Thread(new ThreadStart(updateSlider));
+            timer.next("slider thread");
             loadWave(filename);
+            timer.next("loadWave");
             freqDomain();
+            timer.next("freqDomain");
             sheetmusic = readXML(xmlfile);
-            onsetDetection();            
+            timer.next("sheetmusic");
+            onsetDetection();
+            timer.next("onsetDetection");
             loadImage();
+            timer.next("loadImage");
             loadHistogram();
+            timer.next("loadHistogram");
             playBack();
+            timer.next("playBack");
             check.Start();         
 
             button1.Click += zoomIN;
@@ -68,6 +78,7 @@ namespace WpfApplication1
 
             slider1.ValueChanged += updateHistogram;
             playback.PlaybackStopped += closeMusic;
+            timer.end("Other stuff");
         }
 
         // Loads time-freq image for tab 1
@@ -646,7 +657,6 @@ namespace WpfApplication1
                 Canvas.SetTop(timeRect[ii], 200);
                 noteStaff.Children.Insert(ii, timeRect[ii]);
             }
-
 
         }
 
