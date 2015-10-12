@@ -403,6 +403,7 @@ namespace WpfApplication1
             timer.next("Onset loop 4");
             for (int mm = 0; mm < lengths.Count; mm++)
             {
+                Time timermm = new Time();
                 int nearest = (int)Math.Pow(2, Math.Ceiling(Math.Log(lengths[mm], 2)));
                 twiddles = new Complex[nearest];
                 for (ll = 0; ll < nearest; ll++)
@@ -410,6 +411,7 @@ namespace WpfApplication1
                     double a = 2 * pi * ll / (double)nearest;
                     twiddles[ll] = Complex.Pow(Complex.Exp(-i), (float)a);
                 }
+                timermm.next("Onset mm - ll");
 
                 compX = new Complex[nearest];
                 for (int kk = 0; kk < nearest; kk++)
@@ -423,10 +425,12 @@ namespace WpfApplication1
                         compX[kk] = Complex.Zero;
                     }
                 }
+                timermm.next("Onset mm - kk");
 
                     Y = new Complex[nearest];
 
                     Y = fft(compX, nearest);
+                    timermm.next("Onset mm - Y = fft");
 
                     absY = new double[nearest];
 
@@ -442,6 +446,7 @@ namespace WpfApplication1
                             maxInd = jj;
                         }
                     }
+                    timermm.next("Onset mm - jj");
 
                     for (int div = 6; div > 1; div--)
                     {
@@ -461,6 +466,7 @@ namespace WpfApplication1
                             }
                         }
                     }
+                    timermm.next("Onset mm - div");
 
                     if (maxInd > nearest / 2)
                     {
@@ -470,9 +476,11 @@ namespace WpfApplication1
                     {
                         pitches.Add(maxInd * waveIn.SampleRate / nearest);
                     }
+                    timermm.next("Onset mm - last");
 
 
-                }
+            }
+            timer.next("onset mm loop");
 
             musicNote[] noteArray;
             noteArray = new musicNote[noteStarts.Count()];
@@ -481,7 +489,7 @@ namespace WpfApplication1
             {
                 noteArray[ii] = new musicNote(pitches[ii], lengths[ii]);
             }
-
+            timer.next("onset loop 6");
             int[] sheetPitchArray = new int[sheetmusic.Length];
             int[] notePitchArray = new int[noteArray.Length];
 
@@ -489,12 +497,12 @@ namespace WpfApplication1
             {
                 sheetPitchArray[ii] = sheetmusic[ii].pitch % 12;
             }
-
+            timer.next("onset loop 7");
             for (int jj = 0; jj < noteArray.Length; jj++)
             {
                 notePitchArray[jj] = noteArray[jj].pitch % 12;
             }
-
+            timer.next("onset loop 8");
             string[] alignedStrings = new string[2];
 
             alignedStrings = stringMatch(sheetPitchArray, notePitchArray);
@@ -503,7 +511,7 @@ namespace WpfApplication1
             musicNote[] alignedNoteArray = new musicNote[alignedStrings[1].Length / 2];
             int staffCount = 0;
             int noteCount = 0;
-
+            timer.next("onset stuff");
             for (int ii = 0; ii < alignedStrings[0].Length / 2; ii++)
             {
                 
@@ -527,7 +535,7 @@ namespace WpfApplication1
                     noteCount++;
                 }
             }
-
+            timer.next("onset loop 9");
             // STAFF TAB DISPLAY
                 
                 Ellipse[] notes;
@@ -537,7 +545,7 @@ namespace WpfApplication1
                 SolidColorBrush myBrush = new SolidColorBrush(Colors.Green);
 
                 RotateTransform rotate = new RotateTransform(45);
-
+                timer.start();
                 for (int ii = 0; ii < alignedNoteArray.Length; ii++)
                 {
                     //noteArray[ii] = new musicNote(pitches[ii], lengths[ii]);
@@ -575,7 +583,8 @@ namespace WpfApplication1
                     noteStaff.Children.Insert(ii, notes[ii]);
                     noteStaff.Children.Insert(ii, stems[ii]);
                     
-                }            
+                }
+                timer.next("onset loop 10");
             
             Ellipse[] sheetNotes;
             Rectangle[] timeRect;
@@ -628,6 +637,7 @@ namespace WpfApplication1
                 noteStaff.Children.Insert(ii, sheetNotes[ii]);
                 noteStaff.Children.Insert(ii, sheetStems[ii]);
             }
+            timer.next("onset loop 11");
 
             // FOR TIMING ERROR RECTANGLES
 
@@ -645,6 +655,7 @@ namespace WpfApplication1
                 noteStaff.Children.Insert(ii, timeRect[ii]);
 
             }
+            timer.next("onset loop 12");
 
             for (int ii = alignedStaffArray.Length; ii < alignedStaffArray.Length + alignedNoteArray.Length; ii++)
             {
@@ -658,8 +669,8 @@ namespace WpfApplication1
                 Canvas.SetTop(timeRect[ii], 200);
                 noteStaff.Children.Insert(ii, timeRect[ii]);
             }
-
-        }
+            timer.next("onset loop 13");
+        }//end onset
 
         void DisplayStats(object sender, System.Windows.Input.MouseEventArgs e)
         {
@@ -782,6 +793,7 @@ namespace WpfApplication1
 
         public Complex[] fft(Complex[] x, int L)
         {
+            Time timeff = new Time();
             int ii = 0;
             int kk = 0;
             int N = x.Length;
@@ -799,7 +811,7 @@ namespace WpfApplication1
                 Complex[] O = new Complex[N / 2];
                 Complex[] even = new Complex[N / 2];
                 Complex[] odd = new Complex[N / 2];
-
+                timeff.next("fft things");
                 for (ii = 0; ii < N; ii++)
                 {
 
@@ -812,7 +824,7 @@ namespace WpfApplication1
                         odd[(ii - 1) / 2] = x[ii];
                     }
                 }
-
+                timeff.next("fft loop 1");
                 E = fft(even,L);
                 O = fft(odd,L);
 
@@ -821,7 +833,7 @@ namespace WpfApplication1
                     Y[kk] = E[(kk % (N / 2))] + O[(kk % (N / 2))] * twiddles[kk*(L/N)];
                 }
             }
-
+            timeff.end("fft end");
             return Y;
         }
 

@@ -109,6 +109,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="musicNote.cs" />
+    <Compile Include="Time.cs" />
     <Compile Include="timefreq.cs" />
     <Compile Include="wavefile.cs" />
     <Compile Include="noteGraph.cs" />
