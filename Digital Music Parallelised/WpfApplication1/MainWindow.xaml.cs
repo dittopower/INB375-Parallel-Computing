@@ -29,7 +29,7 @@ using System.Xml;
 
 namespace WpfApplication1
 {
-    
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -42,36 +42,38 @@ namespace WpfApplication1
         public Audio file;
         public musicNote[] sheetmusic;
         public WaveOut playback; // = new WaveOut();
-        public Complex[] twiddles;
         public Complex[] compX;
         public enum pitchConv { C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B };
         public double bpm = 70;
-       
+        const int Num_threads = 8;
+       // public static Time ttt = new Time();
+
         public MainWindow()
         {
+           // ttt.reset();
             InitializeComponent();
             string filename = openFile("Select Audio (wav) file");
             string xmlfile = openFile("Select Score (xml) file");
             Time timer = new Time();
             file = new Audio(filename);
-            timer.next("Load Audio");
+           // timer.next("Load Audio");
             Thread check = new Thread(new ThreadStart(updateSlider));
-            timer.next("slider thread");
+           // timer.next("slider thread");
             loadWave(filename);
-            timer.next("loadWave");
+            timer.next("setup");
             freqDomain();
             timer.next("freqDomain");
             sheetmusic = readXML(xmlfile);
-            timer.next("sheetmusic");
+           // timer.next("sheetmusic");
             onsetDetection();
-            timer.next("onsetDetection");
+           // timer.next("onsetDetection");
             loadImage();
-            timer.next("loadImage");
+          //  timer.next("loadImage");
             loadHistogram();
-            timer.next("loadHistogram");
+         //   timer.next("loadHistogram");
             playBack();
-            timer.next("playBack");
-            check.Start();         
+          //  timer.next("playBack");
+            check.Start();
 
             button1.Click += zoomIN;
             button2.Click += zoomOUT;
@@ -79,6 +81,7 @@ namespace WpfApplication1
             slider1.ValueChanged += updateHistogram;
             playback.PlaybackStopped += closeMusic;
             timer.end("Other stuff");
+           // ttt.end("fft total");
         }
 
         // Loads time-freq image for tab 1
@@ -92,7 +95,7 @@ namespace WpfApplication1
             int rows = stftRep.wSamp / 2;
             int cols = stftRep.timeFreqData[0].Length;
 
-            slider1.Maximum = cols - 1;           
+            slider1.Maximum = cols - 1;
 
             int croppedHeight = 3520 * stftRep.wSamp / (int)fs;
 
@@ -145,7 +148,7 @@ namespace WpfApplication1
             maxi[3] = HIGH.heights.Max() / 60;
             maxi[4] = HIGHEST.heights.Max() / 60;
 
-            double absMax = maxi.Max();            
+            double absMax = maxi.Max();
 
             // DYNAMIC RECTANGLES
 
@@ -263,7 +266,7 @@ namespace WpfApplication1
         private void wavezoomIN(object sender, RoutedEventArgs e)
         {
 
-            line.LayoutTransform = new ScaleTransform(1.1,0,0,300);       
+            line.LayoutTransform = new ScaleTransform(1.1, 0, 0, 300);
 
         }
 
@@ -307,8 +310,11 @@ namespace WpfApplication1
 
         public void freqDomain()
         {
+            Time timerf = new Time();
             stftRep = new timefreq(waveIn.wave, 2048);
+            timerf.next("a");
             pixelArray = new float[stftRep.timeFreqData[0].Length * stftRep.wSamp / 2];
+            timerf.next("b");
             for (int jj = 0; jj < stftRep.wSamp / 2; jj++)
             {
                 for (int ii = 0; ii < stftRep.timeFreqData[0].Length; ii++)
@@ -316,14 +322,14 @@ namespace WpfApplication1
                     pixelArray[jj * stftRep.timeFreqData[0].Length + ii] = stftRep.timeFreqData[jj][ii];
                 }
             }
-
+            timerf.end("c");
         }
 
         // Onset Detection function - Determines Start and Finish times of a note and the frequency of the note over each duration.
 
         public void onsetDetection()
         {
-            Time timer = new Time();
+            //Time timer = new Time();
             float[] HFC;
             int starts = 0;
             int stops = 0;
@@ -348,7 +354,7 @@ namespace WpfApplication1
             SolidColorBrush whiteBrush = new SolidColorBrush(Colors.White);
 
             HFC = new float[stftRep.timeFreqData[0].Length];
-            timer.next("Onset setup");
+            //timer.next("Onset setup");
             for (int jj = 0; jj < stftRep.timeFreqData[0].Length; jj++)
             {
                 for (int ii = 0; ii < stftRep.wSamp / 2; ii++)
@@ -357,14 +363,14 @@ namespace WpfApplication1
                 }
 
             }
-            timer.next("Onset loop 1");
+            //timer.next("Onset loop 1");
             float maxi = HFC.Max();
 
             for (int jj = 0; jj < stftRep.timeFreqData[0].Length; jj++)
             {
                 HFC[jj] = (float)Math.Pow((HFC[jj] / maxi), 2);
             }
-            timer.next("Onset loop 2");
+            // timer.next("Onset loop 2");
             for (int jj = 0; jj < stftRep.timeFreqData[0].Length; jj++)
             {
                 if (starts > stops)
@@ -385,7 +391,7 @@ namespace WpfApplication1
 
                 }
             }
-            timer.next("Onset loop 3");
+            //timer.next("Onset loop 3");
             if (starts > stops)
             {
                 noteStops.Add(waveIn.data.Length);
@@ -395,23 +401,23 @@ namespace WpfApplication1
             // DETERMINES START AND FINISH TIME OF NOTES BASED ON ONSET DETECTION       
 
             ///*
-            timer.start();
+            // timer.restart();
             for (int ii = 0; ii < noteStops.Count; ii++)
             {
                 lengths.Add(noteStops[ii] - noteStarts[ii]);
             }
-            timer.next("Onset loop 4");
+            // timer.next("Onset loop 4");
             for (int mm = 0; mm < lengths.Count; mm++)
             {
-                Time timermm = new Time();
+                //Time timermm = new Time();
                 int nearest = (int)Math.Pow(2, Math.Ceiling(Math.Log(lengths[mm], 2)));
-                twiddles = new Complex[nearest];
+                Core.twiddles = new Complex[nearest];
                 for (ll = 0; ll < nearest; ll++)
                 {
                     double a = 2 * pi * ll / (double)nearest;
-                    twiddles[ll] = Complex.Pow(Complex.Exp(-i), (float)a);
+                    Core.twiddles[ll] = Complex.Pow(Complex.Exp(-i), (float)a);
                 }
-                timermm.next("Onset mm - ll");
+                //timermm.next("Onset mm - ll");
 
                 compX = new Complex[nearest];
                 for (int kk = 0; kk < nearest; kk++)
@@ -425,62 +431,62 @@ namespace WpfApplication1
                         compX[kk] = Complex.Zero;
                     }
                 }
-                timermm.next("Onset mm - kk");
+                // timermm.next("Onset mm - kk");
 
-                    Y = new Complex[nearest];
+                Y = new Complex[nearest];
 
-                    Y = fft(compX, nearest);
-                    timermm.next("Onset mm - Y = fft");
+                Y = Core.fft(compX, nearest);
+                //     timermm.next("Onset mm - Y = fft");
 
-                    absY = new double[nearest];
+                absY = new double[nearest];
 
-                    double maximum = 0;
-                    int maxInd = 0;
+                double maximum = 0;
+                int maxInd = 0;
 
-                    for (int jj = 0; jj < Y.Length; jj++)
+                for (int jj = 0; jj < Y.Length; jj++)
+                {
+                    absY[jj] = Y[jj].Magnitude;
+                    if (absY[jj] > maximum)
                     {
-                        absY[jj] = Y[jj].Magnitude;
-                        if (absY[jj] > maximum)
-                        {
-                            maximum = absY[jj];
-                            maxInd = jj;
-                        }
+                        maximum = absY[jj];
+                        maxInd = jj;
                     }
-                    timermm.next("Onset mm - jj");
+                }
+                //   timermm.next("Onset mm - jj");
 
-                    for (int div = 6; div > 1; div--)
-                    {
-
-                        if (maxInd > nearest / 2)
-                        {
-                            if (absY[(int)Math.Floor((double)(nearest - maxInd) / div)] / absY[(maxInd)] > 0.10)
-                            {
-                                maxInd = (nearest - maxInd) / div;
-                            }
-                        }
-                        else
-                        {
-                            if (absY[(int)Math.Floor((double)maxInd / div)] / absY[(maxInd)] > 0.10)
-                            {
-                                maxInd = maxInd / div;
-                            }
-                        }
-                    }
-                    timermm.next("Onset mm - div");
+                for (int div = 6; div > 1; div--)
+                {
 
                     if (maxInd > nearest / 2)
                     {
-                        pitches.Add((nearest - maxInd) * waveIn.SampleRate / nearest);
+                        if (absY[(int)Math.Floor((double)(nearest - maxInd) / div)] / absY[(maxInd)] > 0.10)
+                        {
+                            maxInd = (nearest - maxInd) / div;
+                        }
                     }
                     else
                     {
-                        pitches.Add(maxInd * waveIn.SampleRate / nearest);
+                        if (absY[(int)Math.Floor((double)maxInd / div)] / absY[(maxInd)] > 0.10)
+                        {
+                            maxInd = maxInd / div;
+                        }
                     }
-                    timermm.next("Onset mm - last");
+                }
+                //   timermm.next("Onset mm - div");
+
+                if (maxInd > nearest / 2)
+                {
+                    pitches.Add((nearest - maxInd) * waveIn.SampleRate / nearest);
+                }
+                else
+                {
+                    pitches.Add(maxInd * waveIn.SampleRate / nearest);
+                }
+                //   timermm.next("Onset mm - last");
 
 
             }
-            timer.next("onset mm loop");
+            // timer.next("onset mm loop");
 
             musicNote[] noteArray;
             noteArray = new musicNote[noteStarts.Count()];
@@ -489,7 +495,7 @@ namespace WpfApplication1
             {
                 noteArray[ii] = new musicNote(pitches[ii], lengths[ii]);
             }
-            timer.next("onset loop 6");
+            //   timer.next("onset loop 6");
             int[] sheetPitchArray = new int[sheetmusic.Length];
             int[] notePitchArray = new int[noteArray.Length];
 
@@ -497,12 +503,12 @@ namespace WpfApplication1
             {
                 sheetPitchArray[ii] = sheetmusic[ii].pitch % 12;
             }
-            timer.next("onset loop 7");
+            //   timer.next("onset loop 7");
             for (int jj = 0; jj < noteArray.Length; jj++)
             {
                 notePitchArray[jj] = noteArray[jj].pitch % 12;
             }
-            timer.next("onset loop 8");
+            //  timer.next("onset loop 8");
             string[] alignedStrings = new string[2];
 
             alignedStrings = stringMatch(sheetPitchArray, notePitchArray);
@@ -511,10 +517,10 @@ namespace WpfApplication1
             musicNote[] alignedNoteArray = new musicNote[alignedStrings[1].Length / 2];
             int staffCount = 0;
             int noteCount = 0;
-            timer.next("onset stuff");
+            //   timer.next("onset stuff");
             for (int ii = 0; ii < alignedStrings[0].Length / 2; ii++)
             {
-                
+
                 if (alignedStrings[0][2 * ii] == ' ')
                 {
                     alignedStaffArray[ii] = new musicNote(0, 0);
@@ -535,57 +541,57 @@ namespace WpfApplication1
                     noteCount++;
                 }
             }
-            timer.next("onset loop 9");
+            //   timer.next("onset loop 9");
             // STAFF TAB DISPLAY
-                
-                Ellipse[] notes;
-                Line[] stems;
-                notes = new Ellipse[alignedNoteArray.Length];
-                stems = new Line[alignedNoteArray.Length];
-                SolidColorBrush myBrush = new SolidColorBrush(Colors.Green);
 
-                RotateTransform rotate = new RotateTransform(45);
-                timer.start();
-                for (int ii = 0; ii < alignedNoteArray.Length; ii++)
+            Ellipse[] notes;
+            Line[] stems;
+            notes = new Ellipse[alignedNoteArray.Length];
+            stems = new Line[alignedNoteArray.Length];
+            SolidColorBrush myBrush = new SolidColorBrush(Colors.Green);
+
+            RotateTransform rotate = new RotateTransform(45);
+            //    timer.restart();
+            for (int ii = 0; ii < alignedNoteArray.Length; ii++)
+            {
+                //noteArray[ii] = new musicNote(pitches[ii], lengths[ii]);
+                //System.Console.Out.Write("Note " + (ii + 1) + ": \nDuration: " + noteArray[ii].duration / waveIn.SampleRate + " seconds \nPitch: " + Enum.GetName(typeof(musicNote.notePitch), (noteArray[ii].pitch) % 12) + " / " + pitches[ii] + "\nError: " + noteArray[ii].error * 100 + "%\n");
+                notes[ii] = new Ellipse();
+                notes[ii].Tag = alignedNoteArray[ii];
+                notes[ii].Height = 20;
+                notes[ii].Width = 15;
+                notes[ii].Margin = new Thickness(ii * 30, 0, 0, 0);
+                notes[ii].LayoutTransform = rotate;
+                notes[ii].MouseEnter += DisplayStats;
+                notes[ii].MouseLeave += ClearStats;
+                stems[ii] = new Line();
+                stems[ii].StrokeThickness = 1;
+                stems[ii].X1 = ii * 30 + 20;
+                stems[ii].X2 = ii * 30 + 20;
+                stems[ii].Y1 = 250 - 10 * alignedNoteArray[ii].staffPos;
+                stems[ii].Y2 = 250 - 10 * alignedNoteArray[ii].staffPos - 40;
+                notes[ii].Fill = ErrorBrush;
+                notes[ii].StrokeThickness = 1;
+                stems[ii].Stroke = ErrorBrush;
+
+
+                Canvas.SetTop(notes[ii], (240 - 10 * alignedNoteArray[ii].staffPos));
+                if (alignedNoteArray[ii].flat)
                 {
-                    //noteArray[ii] = new musicNote(pitches[ii], lengths[ii]);
-                    //System.Console.Out.Write("Note " + (ii + 1) + ": \nDuration: " + noteArray[ii].duration / waveIn.SampleRate + " seconds \nPitch: " + Enum.GetName(typeof(musicNote.notePitch), (noteArray[ii].pitch) % 12) + " / " + pitches[ii] + "\nError: " + noteArray[ii].error * 100 + "%\n");
-                    notes[ii] = new Ellipse();
-                    notes[ii].Tag = alignedNoteArray[ii];
-                    notes[ii].Height = 20;
-                    notes[ii].Width = 15;
-                    notes[ii].Margin = new Thickness(ii * 30, 0, 0, 0);
-                    notes[ii].LayoutTransform = rotate;
-                    notes[ii].MouseEnter += DisplayStats;
-                    notes[ii].MouseLeave += ClearStats;
-                    stems[ii] = new Line();
-                    stems[ii].StrokeThickness = 1;
-                    stems[ii].X1 = ii * 30 + 20;
-                    stems[ii].X2 = ii * 30 + 20;
-                    stems[ii].Y1 = 250 - 10 * alignedNoteArray[ii].staffPos;
-                    stems[ii].Y2 = 250 - 10 * alignedNoteArray[ii].staffPos - 40;
-                    notes[ii].Fill = ErrorBrush;
-                    notes[ii].StrokeThickness = 1;
-                    stems[ii].Stroke = ErrorBrush;
-
-
-                    Canvas.SetTop(notes[ii], (240 - 10 * alignedNoteArray[ii].staffPos));
-                    if (alignedNoteArray[ii].flat)
-                    {
-                        System.Windows.Controls.Label flat = new System.Windows.Controls.Label();
-                        flat.Content = "b";
-                        flat.FontFamily = new FontFamily("Mistral");
-                        flat.Margin = new Thickness(ii * 30 + 15, 0, 0, 0);
-                        Canvas.SetTop(flat, (240 - 10 * alignedNoteArray[ii].staffPos));
-                        noteStaff.Children.Insert(ii, flat);
-                    }
-
-                    noteStaff.Children.Insert(ii, notes[ii]);
-                    noteStaff.Children.Insert(ii, stems[ii]);
-                    
+                    System.Windows.Controls.Label flat = new System.Windows.Controls.Label();
+                    flat.Content = "b";
+                    flat.FontFamily = new FontFamily("Mistral");
+                    flat.Margin = new Thickness(ii * 30 + 15, 0, 0, 0);
+                    Canvas.SetTop(flat, (240 - 10 * alignedNoteArray[ii].staffPos));
+                    noteStaff.Children.Insert(ii, flat);
                 }
-                timer.next("onset loop 10");
-            
+
+                noteStaff.Children.Insert(ii, notes[ii]);
+                noteStaff.Children.Insert(ii, stems[ii]);
+
+            }
+            //   timer.next("onset loop 10");
+
             Ellipse[] sheetNotes;
             Rectangle[] timeRect;
             Line[] sheetStems;
@@ -637,7 +643,7 @@ namespace WpfApplication1
                 noteStaff.Children.Insert(ii, sheetNotes[ii]);
                 noteStaff.Children.Insert(ii, sheetStems[ii]);
             }
-            timer.next("onset loop 11");
+            //    timer.next("onset loop 11");
 
             // FOR TIMING ERROR RECTANGLES
 
@@ -655,7 +661,7 @@ namespace WpfApplication1
                 noteStaff.Children.Insert(ii, timeRect[ii]);
 
             }
-            timer.next("onset loop 12");
+            //   timer.next("onset loop 12");
 
             for (int ii = alignedStaffArray.Length; ii < alignedStaffArray.Length + alignedNoteArray.Length; ii++)
             {
@@ -669,17 +675,17 @@ namespace WpfApplication1
                 Canvas.SetTop(timeRect[ii], 200);
                 noteStaff.Children.Insert(ii, timeRect[ii]);
             }
-            timer.next("onset loop 13");
+            //  timer.next("onset loop 13");
         }//end onset
 
         void DisplayStats(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Ellipse note = (Ellipse)sender;
-            musicNote details = (musicNote) note.Tag;
+            musicNote details = (musicNote)note.Tag;
 
             NoteStatsP.Text = Enum.GetName(typeof(musicNote.notePitch), (details.pitch) % 12);
             NoteStatsF.Text = details.frequency.ToString();
-            NoteStatsE.Text = (details.error*100).ToString() + "%";
+            NoteStatsE.Text = (details.error * 100).ToString() + "%";
             if (details.error > 0.2)
                 Comments.Text = "Too sharp";
             else if (details.error < -0.2)
@@ -715,26 +721,26 @@ namespace WpfApplication1
 
         public void playBack()
         {
-           playback = new WaveOut();
+            playback = new WaveOut();
             NAudio.Wave.WaveFormat waveFormat = new NAudio.Wave.WaveFormat(waveIn.SampleRate, waveIn.BitsPerSample, waveIn.NumChannels);
             //for (int ii = 0; ii < (int)Math.Floor((double)waveIn.data.Length/1024); ii++)
             //{
-                byte[] sound = new byte[waveIn.data.Length];
-                for (int jj = 0; jj < sound.Length; jj++)
-                {
-                    sound[jj] = waveIn.data[jj];
-                }
-                BufferedWaveProvider bwp = new BufferedWaveProvider(waveFormat);
-                
-                bwp.DiscardOnBufferOverflow = true;
-                bwp.AddSamples(sound, 0, sound.Length);
-            
-                
-                playback.Init(bwp);
+            byte[] sound = new byte[waveIn.data.Length];
+            for (int jj = 0; jj < sound.Length; jj++)
+            {
+                sound[jj] = waveIn.data[jj];
+            }
+            BufferedWaveProvider bwp = new BufferedWaveProvider(waveFormat);
 
-                playback.Play(); 
+            bwp.DiscardOnBufferOverflow = true;
+            bwp.AddSamples(sound, 0, sound.Length);
+
+
+            playback.Init(bwp);
+
+            playback.Play();
             //}
-                       
+
         }
 
         // Updating thread - Gets position in music file, uses it as slider value.
@@ -746,15 +752,15 @@ namespace WpfApplication1
             {
                 slider1.Dispatcher.BeginInvoke(new Action(delegate()
                 {
-                    slider1.Value = Math.Floor((double)playback.GetPosition()/1024);
+                    slider1.Value = Math.Floor((double)playback.GetPosition() / 1024);
                 }));
 
                 System.Threading.Thread.Sleep(100);
-                
+
             }
-                playback.Stop();
-                
-                           
+            playback.Stop();
+
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -791,55 +797,10 @@ namespace WpfApplication1
 
         // FFT function for Pitch Detection
 
-        public Complex[] fft(Complex[] x, int L)
-        {
-            Time timeff = new Time();
-            int ii = 0;
-            int kk = 0;
-            int N = x.Length;
-
-            Complex[] Y = new Complex[N];
-
-            if (N == 1)
-            {
-                Y[0] = x[0];
-            }
-            else
-            {
-
-                Complex[] E = new Complex[N / 2];
-                Complex[] O = new Complex[N / 2];
-                Complex[] even = new Complex[N / 2];
-                Complex[] odd = new Complex[N / 2];
-                timeff.next("fft things");
-                for (ii = 0; ii < N; ii++)
-                {
-
-                    if (ii % 2 == 0)
-                    {
-                        even[ii / 2] = x[ii];
-                    }
-                    if (ii % 2 == 1)
-                    {
-                        odd[(ii - 1) / 2] = x[ii];
-                    }
-                }
-                timeff.next("fft loop 1");
-                E = fft(even,L);
-                O = fft(odd,L);
-
-                for (kk = 0; kk < N; kk++)
-                {
-                    Y[kk] = E[(kk % (N / 2))] + O[(kk % (N / 2))] * twiddles[kk*(L/N)];
-                }
-            }
-            timeff.end("fft end");
-            return Y;
-        }
-
+        
         public musicNote[] readXML(string filename)
         {
-            
+
             List<string> stepList = new List<string>(100);
             List<int> octaveList = new List<int>(100);
             List<int> durationList = new List<int>(100);
@@ -877,16 +838,16 @@ namespace WpfApplication1
                 }
                 else if (reader.Name.Equals("pitch"))
                 {
-                    
-                    while(!reader.Name.Equals("step"))
+
+                    while (!reader.Name.Equals("step"))
                     {
-                    reader.Read();
+                        reader.Read();
                     }
                     reader.Read();
                     stepList.Add(reader.Value);
                     while (!reader.Name.Equals("octave"))
                     {
-                        if(reader.Name.Equals("alter") && reader.NodeType == XmlNodeType.Element)
+                        if (reader.Name.Equals("alter") && reader.NodeType == XmlNodeType.Element)
                         {
                             reader.Read();
                             alterList.Add(int.Parse(reader.Value));
@@ -909,21 +870,21 @@ namespace WpfApplication1
                     durationList.Add(int.Parse(reader.Value));
                     //System.Console.Out.Write("Note ~ Pitch: " + stepList[noteCount] + alterList[noteCount] + " Octave: " + octaveList[noteCount] + " Duration: " + durationList[noteCount] + "\n");
                     noteCount++;
-                    
+
                 }
 
             }
 
             scoreArray = new musicNote[noteCount];
 
-            double c0 = 16.351625;            
-            
-            for(int nn = 0; nn < noteCount; nn++)
+            double c0 = 16.351625;
+
+            for (int nn = 0; nn < noteCount; nn++)
             {
                 int step = (int)Enum.Parse(typeof(pitchConv), stepList[nn]);
 
-                double freq = c0 * Math.Pow(2, octaveList[nn]) * (Math.Pow(2, ((double)step + (double)alterList[nn])/12));
-                scoreArray[nn] = new musicNote(freq,(double)durationList[nn]*60*waveIn.SampleRate/(4*bpm));
+                double freq = c0 * Math.Pow(2, octaveList[nn]) * (Math.Pow(2, ((double)step + (double)alterList[nn]) / 12));
+                scoreArray[nn] = new musicNote(freq, (double)durationList[nn] * 60 * waveIn.SampleRate / (4 * bpm));
 
             }
 
@@ -976,8 +937,8 @@ namespace WpfApplication1
             {
                 for (int j = 1; j < B.Length + 1; j++)
                 {
-                    int Ai = (int)A[i-1]-65;//parseChar(A[i - 1]);
-                    int Bj = (int)B[j-1]-65;// parseChar(B[j - 1]);
+                    int Ai = (int)A[i - 1] - 65;//parseChar(A[i - 1]);
+                    int Bj = (int)B[j - 1] - 65;// parseChar(B[j - 1]);
 
                     F[i][j] = Math.Max(Math.Max((F[i - 1][j - 1] + S[Ai][Bj]), (F[i][j - 1] + d)), (F[i - 1][j] + d));
                 }
@@ -997,8 +958,8 @@ namespace WpfApplication1
                 int ScoreUp = F[ii][jj - 1];
                 int ScoreLeft = F[ii - 1][jj];
 
-                int Ai = (int)(A[ii-1])-65;
-                int Bj = (int)(B[jj - 1])-65;
+                int Ai = (int)(A[ii - 1]) - 65;
+                int Bj = (int)(B[jj - 1]) - 65;
 
                 if (Score == ScoreDiag + S[Ai][Bj])
                 {
@@ -1018,7 +979,7 @@ namespace WpfApplication1
                     jj = jj - 1;
                 }
 
-                else if(Score == ScoreLeft + d)
+                else if (Score == ScoreLeft + d)
                 {
                     AlignA = A[ii - 1] + AlignA;
                     AlignB = "-" + AlignB;
@@ -1080,7 +1041,7 @@ namespace WpfApplication1
                         S[i][j] = -Math.Abs(i - j);
                     else
                         S[i][j] = Math.Abs(i - j) - 12;
-                    
+
                     S[j][i] = S[i][j];
                 }
             }
@@ -1190,7 +1151,7 @@ namespace WpfApplication1
 
             return returnArray;
         }
-       
+
     }
 
 }
