@@ -108,6 +108,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core.cs" />
     <Compile Include="musicNote.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="timefreq.cs" />
