@@ -16,7 +16,7 @@ namespace WpfApplication1
         }
         public void start()
         {
-            timeOperations.Reset();
+           // timeOperations.Reset();
             timeOperations.Start();
         }
 
@@ -29,7 +29,22 @@ namespace WpfApplication1
 
         public void next(string what = ""){
             end(what);
-            start();
+            restart();
+        }
+
+        public void pause()
+        {
+            timeOperations.Stop();
+        }
+
+        public void reset()
+        {
+            timeOperations.Reset();
+        }
+
+        public void restart()
+        {
+            timeOperations.Restart();
         }
     }
     

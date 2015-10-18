@@ -1,0 +1,19 @@
+//start app
+setup					  281
+	timefreq - 1			1
+	timefreq - 2		   45
+	timefreq - 3			9
+	timefreq - stft		21349
+	a					21407
+	b						0
+	c					   80
+freqDomain				21488
+Other stuff				13922
+//end app
+
+Program total			35691
+fft total				15406
+15406/35961 = 0.4316494354319015998430976997002
+
+/// fft is responsible for 43.16% of runtime
+

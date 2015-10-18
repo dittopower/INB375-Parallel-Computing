@@ -1,0 +1,36 @@
+" " 
+04:51 PM
+" " 
+setup:
+	273ms
+	270239466ns
+freqDomain:
+	4336ms
+	4283962221ns
+
+
+----------------  String Matching ------------------
+
+B_D_E_E_G_Gb  D_G_A_G_GbE_GbE_  D_  B_B_D_E_E_G_GbD_G_A_B_B_B_A_G_A_G_D_B_A_A_G_B_A_D_D_B_A_A_B_D_E_E_GbG_GbE_D_G_B_A_G_A_B_D_B_D_E_E_G_GbD_G_A_G_GbE_GbE_D_B_B_D_E_E_G_GbD_G_A_B_B_B_A_G_A_G_
+G_D_E_E_G_GbG_D_G_A_A_G_GbGbE_D_D_B_B_B_D_E_E_G_GbD_G_A_  B_B_A_G_A_G_D_B_A_A_G_B_A_D_D_B_A_A_B_D_  E_F_G_  E_D_G_B_A_G_A_B_D_  D_  E_G_F_D_G_A_G_      F_        E_E_    D_                  
+Other stuff:
+	4454ms
+	4400917290ns
+" " 
+04:52 PM
+" " 
+setup:
+	342ms
+	338052183ns
+freqDomain:
+	4116ms
+	4066628643ns
+
+
+----------------  String Matching ------------------
+
+B_D_E_E_G_Gb  D_G_A_G_GbE_GbE_  D_  B_B_D_E_E_G_GbD_G_A_B_B_B_A_G_A_G_D_B_A_A_G_B_A_D_D_B_A_A_B_D_E_E_GbG_GbE_D_G_B_A_G_A_B_D_B_D_E_E_G_GbD_G_A_G_GbE_GbE_D_B_B_D_E_E_G_GbD_G_A_B_B_B_A_G_A_G_
+G_D_E_E_G_GbG_D_G_A_A_G_GbGbE_D_D_B_B_B_D_E_E_G_GbD_G_A_  B_B_A_G_A_G_D_B_A_A_G_B_A_D_D_B_A_A_B_D_  E_F_G_  E_D_G_B_A_G_A_B_D_  D_  E_G_F_D_G_A_G_      F_        E_E_    D_                  
+Other stuff:
+	4515ms
+	4460978340ns
