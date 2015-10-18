@@ -27,8 +27,8 @@ namespace DigitalMusicParallelNogui
 
         static void Main(string[] args)
         {
-            string filename = "C:\\Music Parallel\\Music Analysis Parallel nogui\\Music Analysis Parallel\\Jupiter.wav";
-            string xmlfile = "C:\\Music Parallel\\Music Analysis Parallel nogui\\Music Analysis Parallel\\Jupiter.xml";
+            string filename = "..//..//Jupiter.wav";
+            string xmlfile = "..//..//Jupiter.xml";
             Time timer = new Time();
             loadWave(filename);
             timer.next("setup");
