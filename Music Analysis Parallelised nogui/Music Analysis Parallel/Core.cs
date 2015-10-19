@@ -30,25 +30,35 @@ namespace DigitalMusicParallelNogui
 
                 Complex[] E = new Complex[N / 2];
                 Complex[] O = new Complex[N / 2];
-                Complex[] even = new Complex[N / 2];
-                Complex[] odd = new Complex[N / 2];
-                // timeff.next("fft things");
-                for (ii = 0; ii < N; ii++)
+                if (N == 2)
                 {
-
-                    if (ii % 2 == 0)
-                    {
-                        even[ii / 2] = x[ii];
-                    }
-                    if (ii % 2 == 1)
-                    {
-                        odd[(ii - 1) / 2] = x[ii];
-                    }
+                    E[0] = x[0];
+                    O[0] = x[1];
                 }
-                //   timeff.next("fft loop 1");
-              //  Thread recur = new Thread(fftcaller);
-                E = fft(even, L);
-                O = fft(odd, L);
+                else
+                {
+                    Complex[] even = new Complex[N / 2];
+                    Complex[] odd = new Complex[N / 2];
+                    // timeff.next("fft things");
+                    for (ii = 0; ii < N; ii++)
+                    {
+
+                        if (ii % 2 == 0)
+                        {
+                            even[ii / 2] = x[ii];
+                        }
+                        if (ii % 2 == 1)
+                        {
+                            odd[(ii - 1) / 2] = x[ii];
+                        }
+                    }
+                    //   timeff.next("fft loop 1");
+                    //Thread recur = new Thread(() => { O = fft(odd, L); });
+                    //recur.Start();
+                    E = fft(even, L);
+                    O = fft(odd, L);
+                    //recur.Join();
+                }
 
                 for (kk = 0; kk < N; kk++)
                 {
@@ -59,10 +69,5 @@ namespace DigitalMusicParallelNogui
         //    MainWindow.ttt.pause();
             return Y;
         }
-
-       /* private Complex[] fftcaller(object a)
-        {
-            return fft((Complex[])a,(int)b);
-        }*/
     }
 }
