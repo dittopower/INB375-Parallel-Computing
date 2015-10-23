@@ -69,11 +69,11 @@ namespace DigitalMusicParallelNogui
 
         public static void freqDomain()
         {
-            Time timerf = new Time();
+            //Time timerf = new Time();
             stftRep = new timefreq(waveIn.wave, 2048);
-            timerf.next("freqDomain\ttimefreq");
+            //timerf.next("freqDomain\ttimefreq");
             pixelArray = new float[stftRep.timeFreqData[0].Length * stftRep.wSamp / 2];
-            timerf.next("freqDomain\tpixelarray");
+            //timerf.next("freqDomain\tpixelarray");
             for (int jj = 0; jj < stftRep.wSamp / 2; jj++)
             {
                 for (int ii = 0; ii < stftRep.timeFreqData[0].Length; ii++)
@@ -81,7 +81,7 @@ namespace DigitalMusicParallelNogui
                     pixelArray[jj * stftRep.timeFreqData[0].Length + ii] = stftRep.timeFreqData[jj][ii];
                 }
             }
-            timerf.end("freqDomain\tloop");
+            //timerf.end("freqDomain\tloop");
         }
 
         // Onset Detection function - Determines Start and Finish times of a note and the frequency of the note over each duration.

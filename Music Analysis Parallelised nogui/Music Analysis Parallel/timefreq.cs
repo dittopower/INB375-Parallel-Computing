@@ -27,7 +27,7 @@ namespace DigitalMusicParallelNogui
             Complex i = Complex.ImaginaryOne;
             this.wSamp = windowSamp;
             Core.twiddles = new Complex[wSamp];
-            Time timer = new Time();
+            //Time timer = new Time();
             for (ii = 0; ii < wSamp; ii++)
             {
                 double a = 2 * pi * ii / (double)wSamp;
@@ -58,16 +58,13 @@ namespace DigitalMusicParallelNogui
             {
                 timeFreqData[jj] = new float[cols];
             }
-            timer.next("timefreq - 3");
+           // timer.next("timefreq - 3");
             timeFreqData = stft(compX, wSamp);
-            timer.end("timefreq - stft");
+            //timer.end("timefreq - stft");
         }
 
         float[][] stft(Complex[] x, int wSamp)
         {
-            int ii = 0;
-            int jj = 0;
-            int kk = 0;
             int ll = 0;
             N = x.Length;
             fftMax = 0;
@@ -75,52 +72,38 @@ namespace DigitalMusicParallelNogui
             Thread[] mine = new Thread[MainProgram.Num_threads];
 
             Y = new float[wSamp / 2][];
-            Time timer = new Time();
+            //Time timer = new Time();
             for (ll = 0; ll < wSamp / 2; ll++)
             {
                 Y[ll] = new float[2 * (int)Math.Floor((double)N / (double)wSamp)];
             }
-            timer.next("timefreq@stft - 1");
-            Complex[] temp = new Complex[wSamp];
-            Complex[] tempFFT = new Complex[wSamp];
+            //timer.next("timefreq@stft - 1");
 
-            for (ii = 0; ii < 2 * Math.Floor((double)N / (double)wSamp) - 1; ii++)
+            for (ll = 0; ll < MainProgram.Num_threads; ll++)
             {
-
-                for (jj = 0; jj < wSamp; jj++)
-                {
-                    temp[jj] = x[ii * (wSamp / 2) + jj];
-                }
-
-                tempFFT = Core.fft(temp,wSamp);
-
-                for (kk = 0; kk < wSamp / 2; kk++)
-                {
-                    Y[kk][ii] = (float)Complex.Abs(tempFFT[kk]);
-
-                    if (Y[kk][ii] > fftMax)
-                    {
-                        fftMax = Y[kk][ii];
-                    }
-                }
-
-
+                mine[ll] = new Thread(stft2);
+                mine[ll].Start(ll);
             }
+            for (ll = 0; ll < MainProgram.Num_threads; ll++)
+            {
+                mine[ll].Join();
+            }
+            
             //mytimer.end("stft - 2\tDONE");
-            timer.next("timefreq@stft - 2");
+            //timer.next("timefreq@stft - 2");
 
 
             //Thread[] mine = new Thread[MainProgram.Num_threads];
-            for (int a = 0; a < MainProgram.Num_threads; a++)
+            for (ll = 0; ll < MainProgram.Num_threads; ll++)
             {
-                mine[a] = new Thread(stft3);
-                mine[a].Start(a);
+                mine[ll] = new Thread(stft3);
+                mine[ll].Start(ll);
             }
-            for (int a = 0; a < MainProgram.Num_threads; a++)
+            for (ll = 0; ll < MainProgram.Num_threads; ll++)
             {
-                mine[a].Join();
+                mine[ll].Join();
             }
-            timer.end("timefreq@stft - 3");
+            //timer.end("timefreq@stft - 3");
             return Y;
         }
 
@@ -159,6 +142,36 @@ namespace DigitalMusicParallelNogui
                 for (int kk = 0; kk < wSamp / 2; kk++)
                 {
                     Y[kk][ii] /= fftMax;
+                }
+            }
+        }
+        private void stft2(object tid)
+        {
+            int id = (int)tid;
+            int blocksize = ((int)(2 * Math.Floor((double)N / (double)wSamp) - 1) + MainProgram.Num_threads - 1) / MainProgram.Num_threads;
+
+            int lowerbound = id * blocksize;
+            int upperbound = Math.Min(lowerbound + blocksize, (int)(2 * Math.Floor((double)N / (double)wSamp) - 1));
+            Complex[] temp = new Complex[wSamp];
+            Complex[] tempFFT = new Complex[wSamp];
+
+            for (int ii = lowerbound; ii < upperbound; ii++)
+            {
+                for (int jj = 0; jj < wSamp; jj++)
+                {
+                    temp[jj] = xxx[ii * (wSamp / 2) + jj];
+                }
+
+                tempFFT = Core.fft(temp, wSamp);
+
+                for (int kk = 0; kk < wSamp / 2; kk++)
+                {
+                    Y[kk][ii] = (float)Complex.Abs(tempFFT[kk]);
+
+                    if (Y[kk][ii] > fftMax)
+                    {
+                        fftMax = Y[kk][ii];
+                    }
                 }
             }
         }

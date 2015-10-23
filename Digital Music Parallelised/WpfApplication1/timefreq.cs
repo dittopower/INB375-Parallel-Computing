@@ -18,8 +18,6 @@ namespace WpfApplication1
         private float fftMax;
         private int N;
         private float[][] Y;
-        private Complex[] temp;
-        private Complex[] tempFFT;
         private Complex[] xxx;
 
         public timefreq(float[] x, int windowSamp)
@@ -84,31 +82,15 @@ namespace WpfApplication1
                 Y[ll] = new float[2 * (int)Math.Floor((double)N / (double)wSamp)];
             }
             timer.next("timefreq@stft - 1");
-            temp = new Complex[wSamp];
-            tempFFT = new Complex[wSamp];
 
-
-            //Time mytimer = new Time();
-
-            for (ii = 0; ii < 2 * Math.Floor((double)N / (double)wSamp) - 1; ii++)
+            for (ll = 0; ll < MainWindow.Num_threads; ll++)
             {
-
-                for (jj = 0; jj < wSamp; jj++)
-                {
-                    temp[jj] = x[ii * (wSamp / 2) + jj];
-                }
-                tempFFT = Core.fft(temp, wSamp);
-                for (kk = 0; kk < wSamp / 2; kk++)
-                {
-                    Y[kk][ii] = (float)Complex.Abs(tempFFT[kk]);
-
-                    if (Y[kk][ii] > fftMax)
-                    {
-                        fftMax = Y[kk][ii];
-                    }
-                }
-
-
+                mine[ll] = new Thread(stft2);
+                mine[ll].Start(ll);
+            }
+            for (ll = 0; ll < MainWindow.Num_threads; ll++)
+            {
+                mine[ll].Join();
             }
             //mytimer.end("stft - 2\tDONE");
             timer.next("timefreq@stft - 2");
@@ -174,12 +156,27 @@ namespace WpfApplication1
 
             int lowerbound = id * blocksize;
             int upperbound = Math.Min(lowerbound + blocksize, (int)(2 * Math.Floor((double)N / (double)wSamp) - 1));
+            Complex[] temp = new Complex[wSamp];
+            Complex[] tempFFT = new Complex[wSamp];
 
             for (int ii = lowerbound; ii < upperbound; ii++)
             {
-                //mytimer.next("stft - 2 - 1");
+                for (int jj = 0; jj < wSamp; jj++)
+                {
+                    temp[jj] = xxx[ii * (wSamp / 2) + jj];
+                }
 
                 tempFFT = Core.fft(temp, wSamp);
+
+                for (int kk = 0; kk < wSamp / 2; kk++)
+                {
+                    Y[kk][ii] = (float)Complex.Abs(tempFFT[kk]);
+
+                    if (Y[kk][ii] > fftMax)
+                    {
+                        fftMax = Y[kk][ii];
+                    }
+                }
             }
         }
     }
