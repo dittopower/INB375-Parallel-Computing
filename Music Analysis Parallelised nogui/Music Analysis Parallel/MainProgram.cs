@@ -29,21 +29,23 @@ namespace DigitalMusicParallelNogui
         {
             string filename = "..//..//Jupiter.wav";
             string xmlfile = "..//..//Jupiter.xml";
+            Time timewhole = new Time();
             Time timer = new Time();
             loadWave(filename);
-            timer.next("setup");
+            timer.next("\nsetup");
             freqDomain();
-            timer.next("freqDomain");
+            timer.next("\nfreqDomain");
             sheetmusic = readXML(xmlfile);
-            // timer.next("sheetmusic");
+            timer.next("\nsheetmusic");
             onsetDetection();
-            // timer.next("onsetDetection");
-            //  timer.next("loadImage");
-            //   timer.next("loadHistogram");
-            //  timer.next("playBack");
+            timer.next("\nonsetDetection");
+            //timer.next("\nloadImage");
+            //timer.next("\nloadHistogram");
+            //timer.next("\nplayBack");
 
-            timer.end("Other stuff");
+            timer.end("\nOther stuff");
             Console.WriteLine("It is done!");
+            timewhole.end("Overall time");
             Console.ReadKey();
         }
 
@@ -69,9 +71,9 @@ namespace DigitalMusicParallelNogui
         {
             Time timerf = new Time();
             stftRep = new timefreq(waveIn.wave, 2048);
-            timerf.next("a");
+            timerf.next("freqDomain\ttimefreq");
             pixelArray = new float[stftRep.timeFreqData[0].Length * stftRep.wSamp / 2];
-            timerf.next("b");
+            timerf.next("freqDomain\tpixelarray");
             for (int jj = 0; jj < stftRep.wSamp / 2; jj++)
             {
                 for (int ii = 0; ii < stftRep.timeFreqData[0].Length; ii++)
@@ -79,7 +81,7 @@ namespace DigitalMusicParallelNogui
                     pixelArray[jj * stftRep.timeFreqData[0].Length + ii] = stftRep.timeFreqData[jj][ii];
                 }
             }
-            timerf.end("c");
+            timerf.end("freqDomain\tloop");
         }
 
         // Onset Detection function - Determines Start and Finish times of a note and the frequency of the note over each duration.
@@ -639,10 +641,10 @@ namespace DigitalMusicParallelNogui
                 jj = jj - 1;
             }
 
-            System.Console.Out.Write("\n\n----------------  String Matching ------------------\n\n");
+            //System.Console.Out.Write("\n\n----------------  String Matching ------------------\n\n");
 
-            System.Console.Out.Write(AlignA + "\n");
-            System.Console.Out.Write(AlignB + "\n");
+            //System.Console.Out.Write(AlignA + "\n");
+            //System.Console.Out.Write(AlignB + "\n");
 
             string[] returnArray = new string[2];
 

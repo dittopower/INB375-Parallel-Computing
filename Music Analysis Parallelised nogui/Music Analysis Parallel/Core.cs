@@ -13,7 +13,6 @@ namespace DigitalMusicParallelNogui
 
         public static Complex[] fft(Complex[] x, int L)
         {
-            // Time timeff = new Time();
          //   MainWindow.ttt.start();
             int ii = 0;
             int kk = 0;
@@ -52,12 +51,9 @@ namespace DigitalMusicParallelNogui
                             odd[(ii - 1) / 2] = x[ii];
                         }
                     }
-                    //   timeff.next("fft loop 1");
-                    //Thread recur = new Thread(() => { O = fft(odd, L); });
-                    //recur.Start();
+                    
                     E = fft(even, L);
                     O = fft(odd, L);
-                    //recur.Join();
                 }
 
                 for (kk = 0; kk < N; kk++)
@@ -65,7 +61,7 @@ namespace DigitalMusicParallelNogui
                     Y[kk] = E[(kk % (N / 2))] + O[(kk % (N / 2))] * twiddles [kk * (L / N)];
                 }
             }
-            //   timeff.end("fft end");
+            
         //    MainWindow.ttt.pause();
             return Y;
         }
