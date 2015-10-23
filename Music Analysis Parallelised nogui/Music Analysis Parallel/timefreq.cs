@@ -11,9 +11,14 @@ namespace DigitalMusicParallelNogui
     {
         public float[][] timeFreqData;
         public int wSamp;
-        public Complex[] compX;
+
+        private Complex[] compX;
         private int nearest;
         private float[] xx;
+        private float fftMax;
+        private int N;
+        private float[][] Y;
+        private Complex[] xxx;
 
         public timefreq(float[] x, int windowSamp)
         {
@@ -64,10 +69,12 @@ namespace DigitalMusicParallelNogui
             int jj = 0;
             int kk = 0;
             int ll = 0;
-            int N = x.Length;
-            float fftMax = 0;
+            N = x.Length;
+            fftMax = 0;
+            xxx = x;
+            Thread[] mine = new Thread[MainProgram.Num_threads];
 
-            float[][] Y = new float[wSamp / 2][];
+            Y = new float[wSamp / 2][];
             Time timer = new Time();
             for (ll = 0; ll < wSamp / 2; ll++)
             {
@@ -79,14 +86,14 @@ namespace DigitalMusicParallelNogui
 
             for (ii = 0; ii < 2 * Math.Floor((double)N / (double)wSamp) - 1; ii++)
             {
-                //  Time mytimer = new Time();
+
                 for (jj = 0; jj < wSamp; jj++)
                 {
                     temp[jj] = x[ii * (wSamp / 2) + jj];
                 }
-                //   mytimer.next("tf-stft-in 1");
-                tempFFT = Core.fft(temp, wSamp);
-                //  mytimer.next("tf-stft-in 2");
+
+                tempFFT = Core.fft(temp,wSamp);
+
                 for (kk = 0; kk < wSamp / 2; kk++)
                 {
                     Y[kk][ii] = (float)Complex.Abs(tempFFT[kk]);
@@ -96,19 +103,24 @@ namespace DigitalMusicParallelNogui
                         fftMax = Y[kk][ii];
                     }
                 }
-                // mytimer.next("tf-stft-in 3");
 
 
             }
+            //mytimer.end("stft - 2\tDONE");
             timer.next("timefreq@stft - 2");
-            for (ii = 0; ii < 2 * Math.Floor((double)N / (double)wSamp) - 1; ii++)
+
+
+            //Thread[] mine = new Thread[MainProgram.Num_threads];
+            for (int a = 0; a < MainProgram.Num_threads; a++)
             {
-                for (kk = 0; kk < wSamp / 2; kk++)
-                {
-                    Y[kk][ii] /= fftMax;
-                }
+                mine[a] = new Thread(stft3);
+                mine[a].Start(a);
             }
-            timer.next("timefreq@stft - 3");
+            for (int a = 0; a < MainProgram.Num_threads; a++)
+            {
+                mine[a].Join();
+            }
+            timer.end("timefreq@stft - 3");
             return Y;
         }
 
@@ -133,5 +145,23 @@ namespace DigitalMusicParallelNogui
                 }
             }
         }
+
+        private void stft3(object tid)
+        {
+            int id = (int)tid;
+            int blocksize = ((int)(2 * Math.Floor((double)N / (double)wSamp) - 1) + MainProgram.Num_threads - 1) / MainProgram.Num_threads;
+
+            int lowerbound = id * blocksize;
+            int upperbound = Math.Min(lowerbound + blocksize, (int)(2 * Math.Floor((double)N / (double)wSamp) - 1));
+
+            for (int ii = lowerbound; ii < upperbound; ii++)
+            {
+                for (int kk = 0; kk < wSamp / 2; kk++)
+                {
+                    Y[kk][ii] /= fftMax;
+                }
+            }
+        }
+
     }
 }

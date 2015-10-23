@@ -45,7 +45,7 @@ namespace WpfApplication1
         public Complex[] compX;
         public enum pitchConv { C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B };
         public double bpm = 70;
-        const int Num_threads = 8;
+        public const int Num_threads = 8;
        // public static Time ttt = new Time();
 
         public MainWindow()

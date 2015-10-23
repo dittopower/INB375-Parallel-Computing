@@ -13,7 +13,6 @@ namespace WpfApplication1
 
         public static Complex[] fft(Complex[] x, int L)
         {
-            // Time timeff = new Time();
          //   MainWindow.ttt.start();
             int ii = 0;
             int kk = 0;
@@ -45,24 +44,19 @@ namespace WpfApplication1
                         odd[(ii - 1) / 2] = x[ii];
                     }
                 }
-                //   timeff.next("fft loop 1");
-              //  Thread recur = new Thread(fftcaller);
+                    
                 E = fft(even, L);
                 O = fft(odd, L);
+            
 
-                for (kk = 0; kk < N; kk++)
-                {
-                    Y[kk] = E[(kk % (N / 2))] + O[(kk % (N / 2))] * twiddles [kk * (L / N)];
-                }
+            for (kk = 0; kk < N; kk++)
+            {
+                Y[kk] = E[(kk % (N / 2))] + O[(kk % (N / 2))] * twiddles [kk * (L / N)];
             }
-            //   timeff.end("fft end");
+            }
+            
         //    MainWindow.ttt.pause();
             return Y;
         }
-
-       /* private Complex[] fftcaller(object a)
-        {
-            return fft((Complex[])a,(int)b);
-        }*/
     }
 }

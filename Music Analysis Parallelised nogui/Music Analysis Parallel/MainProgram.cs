@@ -189,7 +189,7 @@ namespace DigitalMusicParallelNogui
                 // timermm.next("Onset mm - kk");
 
                 Y = new Complex[nearest];
-
+                
                 Y = Core.fft(compX, nearest);
                 //     timermm.next("Onset mm - Y = fft");
 
