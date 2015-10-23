@@ -1,0 +1,33 @@
+This is the final modification of Y in stft() in timefreq
+
+Normal
+---------------------------------------
+timefreq@stft - 3:
+	73ms
+	72509892ns
+timefreq@stft - 3:
+	72ms
+	71745786ns
+timefreq@stft - 3:
+	73ms
+	72124458ns
+	
+Threaded
+---------------------------------------
+timefreq@stft - 3:
+	27ms
+	27119967ns
+timefreq@stft - 3:
+	30ms
+	30034389ns
+timefreq@stft - 3:
+	23ms
+	23488290ns
+
+	
+Average
+---------------------------------------
+N: (72509892 + 71745786 + 72124458)/3 = 72126712
+P: (27119967 + 30034389 + 23488290)/3 = 26880882
+
+S^ = n/p = 72126712/26880882 = 2.68319737425
