@@ -11,10 +11,13 @@ namespace DigitalMusicParallelNogui
     {
         public float[][] timeFreqData;
         public int wSamp;
+        public Complex[] compX;
+        private int nearest;
+        private float[] xx;
 
         public timefreq(float[] x, int windowSamp)
         {
-            int ii;
+            int ii; xx = x;
             double pi = 3.14159265;
             Complex i = Complex.ImaginaryOne;
             this.wSamp = windowSamp;
@@ -25,27 +28,26 @@ namespace DigitalMusicParallelNogui
                 double a = 2 * pi * ii / (double)wSamp;
                 Core.twiddles[ii] = Complex.Pow(Complex.Exp(-i), (float)a);
             }
-            timer.next("timefreq - 1");
-            timeFreqData = new float[wSamp/2][];
+            //timer.next("timefreq - 1");
+            timeFreqData = new float[wSamp / 2][];
 
-            int nearest = (int)Math.Ceiling((double)x.Length / (double)wSamp);
+            nearest = (int)Math.Ceiling((double)x.Length / (double)wSamp);
             nearest = nearest * wSamp;
 
-            Complex[] compX = new Complex[nearest];
-            for (int kk = 0; kk < nearest; kk++)
+            compX = new Complex[nearest];
+            Thread[] mine = new Thread[MainProgram.Num_threads];
+            for (int a = 0; a < MainProgram.Num_threads; a++)
             {
-                if (kk < x.Length)
-                {
-                    compX[kk] = x[kk];
-                }
-                else
-                {
-                    compX[kk] = Complex.Zero;
-                }
+                mine[a] = new Thread(loop);
+                mine[a].Start(a);
             }
-            timer.next("timefreq - 2");
+            for (int a = 0; a < MainProgram.Num_threads; a++)
+            {
+                mine[a].Join();
+            }
+            //timer.next("timefreq - 2");
 
-            int cols = 2 * nearest /wSamp;
+            int cols = 2 * nearest / wSamp;
 
             for (int jj = 0; jj < wSamp / 2; jj++)
             {
@@ -64,27 +66,27 @@ namespace DigitalMusicParallelNogui
             int ll = 0;
             int N = x.Length;
             float fftMax = 0;
-            
+
             float[][] Y = new float[wSamp / 2][];
-          //  Time timer = new Time();
+            Time timer = new Time();
             for (ll = 0; ll < wSamp / 2; ll++)
             {
                 Y[ll] = new float[2 * (int)Math.Floor((double)N / (double)wSamp)];
             }
-           // timer.next("timefreq@stft - 1");
+            timer.next("timefreq@stft - 1");
             Complex[] temp = new Complex[wSamp];
             Complex[] tempFFT = new Complex[wSamp];
 
             for (ii = 0; ii < 2 * Math.Floor((double)N / (double)wSamp) - 1; ii++)
             {
-              //  Time mytimer = new Time();
+                //  Time mytimer = new Time();
                 for (jj = 0; jj < wSamp; jj++)
                 {
                     temp[jj] = x[ii * (wSamp / 2) + jj];
                 }
-             //   mytimer.next("tf-stft-in 1");
-                tempFFT = Core.fft(temp,wSamp);
-              //  mytimer.next("tf-stft-in 2");
+                //   mytimer.next("tf-stft-in 1");
+                tempFFT = Core.fft(temp, wSamp);
+                //  mytimer.next("tf-stft-in 2");
                 for (kk = 0; kk < wSamp / 2; kk++)
                 {
                     Y[kk][ii] = (float)Complex.Abs(tempFFT[kk]);
@@ -94,11 +96,11 @@ namespace DigitalMusicParallelNogui
                         fftMax = Y[kk][ii];
                     }
                 }
-               // mytimer.next("tf-stft-in 3");
+                // mytimer.next("tf-stft-in 3");
 
 
             }
-          //  timer.next("timefreq@stft - 2");
+            timer.next("timefreq@stft - 2");
             for (ii = 0; ii < 2 * Math.Floor((double)N / (double)wSamp) - 1; ii++)
             {
                 for (kk = 0; kk < wSamp / 2; kk++)
@@ -106,9 +108,30 @@ namespace DigitalMusicParallelNogui
                     Y[kk][ii] /= fftMax;
                 }
             }
-           // timer.next("timefreq@stft - 3");
+            timer.next("timefreq@stft - 3");
             return Y;
         }
 
+
+        private void loop(object tid)
+        {
+            int id = (int)tid;
+            int blocksize = (nearest + MainProgram.Num_threads - 1) / MainProgram.Num_threads;
+
+            int lowerbound = id * blocksize;
+            int upperbound = Math.Min(lowerbound + blocksize, nearest);
+
+            for (int kk = lowerbound; kk < upperbound; kk++)
+            {
+                if (kk < xx.Length)
+                {
+                    compX[kk] = xx[kk];
+                }
+                else
+                {
+                    compX[kk] = Complex.Zero;
+                }
+            }
+        }
     }
 }

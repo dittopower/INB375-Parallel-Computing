@@ -23,7 +23,7 @@ namespace DigitalMusicParallelNogui
         public static Complex[] compX;
         public enum pitchConv { C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B };
         public static double bpm = 70;
-        const int Num_threads = 8;
+        public const int Num_threads = 8;
 
         static void Main(string[] args)
         {
