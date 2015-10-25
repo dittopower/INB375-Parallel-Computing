@@ -85,11 +85,10 @@ namespace DigitalMusicParallelNogui
         }
 
         // Onset Detection function - Determines Start and Finish times of a note and the frequency of the note over each duration.
-
+        private static float[] HFC;
         public static void onsetDetection()
         {
-            //Time timer = new Time();
-            float[] HFC;
+            Time timer = new Time();
             int starts = 0;
             int stops = 0;
             Complex[] Y;
@@ -110,13 +109,15 @@ namespace DigitalMusicParallelNogui
 
             HFC = new float[stftRep.timeFreqData[0].Length];
             //timer.next("Onset setup");
-            for (int jj = 0; jj < stftRep.timeFreqData[0].Length; jj++)
+            Thread[] mine = new Thread[MainProgram.Num_threads];
+            for (int a = 0; a < MainProgram.Num_threads; a++)
             {
-                for (int ii = 0; ii < stftRep.wSamp / 2; ii++)
-                {
-                    HFC[jj] = HFC[jj] + (float)Math.Pow((double)stftRep.timeFreqData[ii][jj] * ii, 2);
-                }
-
+                mine[a] = new Thread(onsetloop1);
+                mine[a].Start(a);
+            }
+            for (int a = 0; a < MainProgram.Num_threads; a++)
+            {
+                mine[a].Join();
             }
             //timer.next("Onset loop 1");
             float maxi = HFC.Max();
@@ -125,7 +126,7 @@ namespace DigitalMusicParallelNogui
             {
                 HFC[jj] = (float)Math.Pow((HFC[jj] / maxi), 2);
             }
-            // timer.next("Onset loop 2");
+            //timer.next("Onset loop 2");
             for (int jj = 0; jj < stftRep.timeFreqData[0].Length; jj++)
             {
                 if (starts > stops)
@@ -161,7 +162,8 @@ namespace DigitalMusicParallelNogui
             {
                 lengths.Add(noteStops[ii] - noteStarts[ii]);
             }
-            // timer.next("Onset loop 4");
+            timer.next("Onset loop 4");
+
             for (int mm = 0; mm < lengths.Count; mm++)
             {
                 //Time timermm = new Time();
@@ -241,7 +243,7 @@ namespace DigitalMusicParallelNogui
 
 
             }
-            // timer.next("onset mm loop");
+            timer.next("onset mm loop");
 
             musicNote[] noteArray;
             noteArray = new musicNote[noteStarts.Count()];
@@ -250,7 +252,7 @@ namespace DigitalMusicParallelNogui
             {
                 noteArray[ii] = new musicNote(pitches[ii], lengths[ii]);
             }
-            //   timer.next("onset loop 6");
+            //timer.next("onset loop 6");
             int[] sheetPitchArray = new int[sheetmusic.Length];
             int[] notePitchArray = new int[noteArray.Length];
 
@@ -258,12 +260,12 @@ namespace DigitalMusicParallelNogui
             {
                 sheetPitchArray[ii] = sheetmusic[ii].pitch % 12;
             }
-            //   timer.next("onset loop 7");
+            //timer.next("onset loop 7");
             for (int jj = 0; jj < noteArray.Length; jj++)
             {
                 notePitchArray[jj] = noteArray[jj].pitch % 12;
             }
-            //  timer.next("onset loop 8");
+            //timer.next("onset loop 8");
             string[] alignedStrings = new string[2];
 
             alignedStrings = stringMatch(sheetPitchArray, notePitchArray);
@@ -272,7 +274,7 @@ namespace DigitalMusicParallelNogui
             musicNote[] alignedNoteArray = new musicNote[alignedStrings[1].Length / 2];
             int staffCount = 0;
             int noteCount = 0;
-            //   timer.next("onset stuff");
+            //timer.next("onset stuff");
             for (int ii = 0; ii < alignedStrings[0].Length / 2; ii++)
             {
 
@@ -296,8 +298,27 @@ namespace DigitalMusicParallelNogui
                     noteCount++;
                 }
             }
+            timer.end("onset last");
 
         }//end onset
+
+        private static void onsetloop1(object tid)
+        {
+            int id = (int)tid;
+            int blocksize = (stftRep.timeFreqData[0].Length + MainProgram.Num_threads - 1) / MainProgram.Num_threads;
+
+            int lowerbound = id * blocksize;
+            int upperbound = Math.Min(lowerbound + blocksize, stftRep.timeFreqData[0].Length);
+
+            for (int jj = lowerbound; jj < upperbound; jj++)
+            {
+                for (int ii = 0; ii < stftRep.wSamp / 2; ii++)
+                {
+                    HFC[jj] = HFC[jj] + (float)Math.Pow((double)stftRep.timeFreqData[ii][jj] * ii, 2);
+                }
+            }
+        }
+
 
         // FFT function for Pitch Detection
         public static musicNote[] readXML(string filename)

@@ -326,11 +326,11 @@ namespace WpfApplication1
         }
 
         // Onset Detection function - Determines Start and Finish times of a note and the frequency of the note over each duration.
-
+        private float[] HFC;
         public void onsetDetection()
         {
             //Time timer = new Time();
-            float[] HFC;
+            
             int starts = 0;
             int stops = 0;
             Complex[] Y;
@@ -355,13 +355,15 @@ namespace WpfApplication1
 
             HFC = new float[stftRep.timeFreqData[0].Length];
             //timer.next("Onset setup");
-            for (int jj = 0; jj < stftRep.timeFreqData[0].Length; jj++)
+            Thread[] mine = new Thread[Num_threads];
+            for (int a = 0; a < Num_threads; a++)
             {
-                for (int ii = 0; ii < stftRep.wSamp / 2; ii++)
-                {
-                    HFC[jj] = HFC[jj] + (float)Math.Pow((double)stftRep.timeFreqData[ii][jj] * ii, 2);
-                }
-
+                mine[a] = new Thread(onsetloop1);
+                mine[a].Start(a);
+            }
+            for (int a = 0; a < Num_threads; a++)
+            {
+                mine[a].Join();
             }
             //timer.next("Onset loop 1");
             float maxi = HFC.Max();
@@ -677,6 +679,22 @@ namespace WpfApplication1
             }
             //  timer.next("onset loop 13");
         }//end onset
+        private void onsetloop1(object tid)
+        {
+            int id = (int)tid;
+            int blocksize = (stftRep.timeFreqData[0].Length + Num_threads - 1) / Num_threads;
+
+            int lowerbound = id * blocksize;
+            int upperbound = Math.Min(lowerbound + blocksize, stftRep.timeFreqData[0].Length);
+
+            for (int jj = lowerbound; jj < upperbound; jj++)
+            {
+                for (int ii = 0; ii < stftRep.wSamp / 2; ii++)
+                {
+                    HFC[jj] = HFC[jj] + (float)Math.Pow((double)stftRep.timeFreqData[ii][jj] * ii, 2);
+                }
+            }
+        }
 
         void DisplayStats(object sender, System.Windows.Input.MouseEventArgs e)
         {

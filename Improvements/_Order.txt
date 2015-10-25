@@ -1,0 +1,5 @@
+this is the order things were done in
+timefreq - 2
+timefreq stft -3
+timefreq stft - 2
+onset - loop 1
