@@ -29,7 +29,7 @@ namespace WpfApplication1
             Complex i = Complex.ImaginaryOne;
             this.wSamp = windowSamp;
             core.twiddles = new Complex[wSamp];
-            Time timer = new Time();
+            //Time timer = new Time();
             for (ii = 0; ii < wSamp; ii++)
             {
                 double a = 2 * pi * ii / (double)wSamp;
@@ -60,9 +60,9 @@ namespace WpfApplication1
             {
                 timeFreqData[jj] = new float[cols];
             }
-            timer.next("timefreq - 3");
+            //timer.next("timefreq - 3");
             timeFreqData = stft(compX, wSamp);
-            timer.end("timefreq - stft");
+            //timer.end("timefreq - stft");
         }
 
         float[][] stft(Complex[] x, int wSamp)
@@ -77,12 +77,12 @@ namespace WpfApplication1
             Thread[] mine = new Thread[MainWindow.Num_threads];
 
             Y = new float[wSamp / 2][];
-            Time timer = new Time();
+            //Time timer = new Time();
             for (ll = 0; ll < wSamp / 2; ll++)
             {
                 Y[ll] = new float[2 * (int)Math.Floor((double)N / (double)wSamp)];
             }
-            timer.next("timefreq@stft - 1");
+            //timer.next("timefreq@stft - 1");
 
             for (ll = 0; ll < MainWindow.Num_threads; ll++)
             {
@@ -94,7 +94,7 @@ namespace WpfApplication1
                 mine[ll].Join();
             }
             //mytimer.end("stft - 2\tDONE");
-            timer.next("timefreq@stft - 2");
+            //timer.next("timefreq@stft - 2");
 
 
             //Thread[] mine = new Thread[MainWindow.Num_threads];
@@ -107,7 +107,7 @@ namespace WpfApplication1
             {
                 mine[a].Join();
             }
-            timer.end("timefreq@stft - 3");
+            //timer.end("timefreq@stft - 3");
             return Y;
         }
 

@@ -56,23 +56,23 @@ namespace WpfApplication1
             string xmlfile = openFile("Select Score (xml) file");
             Time timer = new Time();
             file = new Audio(filename);
-           // timer.next("Load Audio");
+            timer.next("Load Audio");
             Thread check = new Thread(new ThreadStart(updateSlider));
-           // timer.next("slider thread");
+            timer.next("slider thread");
             loadWave(filename);
             timer.next("setup");
             freqDomain();
             timer.next("freqDomain");
             sheetmusic = readXML(xmlfile);
-           // timer.next("sheetmusic");
+            timer.next("sheetmusic");
             onsetDetection();
-           // timer.next("onsetDetection");
+            timer.next("onsetDetection");
             loadImage();
-          //  timer.next("loadImage");
+            timer.next("loadImage");
             loadHistogram();
-         //   timer.next("loadHistogram");
+            timer.next("loadHistogram");
             playBack();
-          //  timer.next("playBack");
+            timer.next("playBack");
             check.Start();
 
             button1.Click += zoomIN;
@@ -310,11 +310,11 @@ namespace WpfApplication1
 
         public void freqDomain()
         {
-            Time timerf = new Time();
+            //Time timerf = new Time();
             stftRep = new timefreq(waveIn.wave, 2048);
-            timerf.next("a");
+            //timerf.next("a");
             pixelArray = new float[stftRep.timeFreqData[0].Length * stftRep.wSamp / 2];
-            timerf.next("b");
+            //timerf.next("b");
             for (int jj = 0; jj < stftRep.wSamp / 2; jj++)
             {
                 for (int ii = 0; ii < stftRep.timeFreqData[0].Length; ii++)
@@ -322,7 +322,7 @@ namespace WpfApplication1
                     pixelArray[jj * stftRep.timeFreqData[0].Length + ii] = stftRep.timeFreqData[jj][ii];
                 }
             }
-            timerf.end("c");
+            //timerf.end("c");
         }
 
         // Onset Detection function - Determines Start and Finish times of a note and the frequency of the note over each duration.
@@ -765,15 +765,15 @@ namespace WpfApplication1
             NAudio.Wave.WaveFormat waveFormat = new NAudio.Wave.WaveFormat(waveIn.SampleRate, waveIn.BitsPerSample, waveIn.NumChannels);
             //for (int ii = 0; ii < (int)Math.Floor((double)waveIn.data.Length/1024); ii++)
             //{
-            byte[] sound = new byte[waveIn.data.Length];
+           /* byte[] sound = new byte[waveIn.data.Length];
             for (int jj = 0; jj < sound.Length; jj++)
             {
                 sound[jj] = waveIn.data[jj];
-            }
+            }*/
             BufferedWaveProvider bwp = new BufferedWaveProvider(waveFormat);
 
             bwp.DiscardOnBufferOverflow = true;
-            bwp.AddSamples(sound, 0, sound.Length);
+            bwp.AddSamples(waveIn.data, 0, waveIn.data.Length);
 
 
             playback.Init(bwp);
