@@ -9,9 +9,9 @@ namespace DigitalMusicParallelNogui
 {
     class Core
     {
-        public static Complex[] twiddles;
+        public Complex[] twiddles;
 
-        public static Complex[] fft(Complex[] x, int L)
+        public Complex[] fft(Complex[] x, int L)
         {
          //   MainWindow.ttt.start();
             int ii = 0;

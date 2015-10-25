@@ -1,0 +1,66 @@
+public static wavefile waveIn;
+public static Complex[] compX;
+public enum pitchConv { C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B };
+private static float[] HFC;
+Complex[] Y;
+double[] absY;
+List<int> lengths;
+List<int> noteStarts;
+List<double> pitches;
+Complex i = Complex.ImaginaryOne;
+
+	for (int mm = 0; mm < lengths.Count; mm++)
+	{
+		int nearest = (int)Math.Pow(2, Math.Ceiling(Math.Log(lengths[mm], 2)));
+		Core.twiddles = new Complex[nearest];
+		for (int ll = 0; ll < nearest; ll++)
+		{
+			double a = 2 * pi * ll / (double)nearest;
+			Core.twiddles[ll] = Complex.Pow(Complex.Exp(-i), (float)a);
+		}
+		compX = new Complex[nearest];
+		for (int kk = 0; kk < nearest; kk++)
+		{
+			if (kk < lengths[mm] && (noteStarts[mm] + kk) < waveIn.wave.Length)
+			{
+				compX[kk] = waveIn.wave[noteStarts[mm] + kk];
+			}else{
+				compX[kk] = Complex.Zero;
+			}
+		}
+		Y = new Complex[nearest];
+		Y = Core.fft(compX, nearest);
+		absY = new double[nearest];
+		double maximum = 0;
+		int maxInd = 0;
+		for (int jj = 0; jj < Y.Length; jj++)
+		{
+			absY[jj] = Y[jj].Magnitude;
+			if (absY[jj] > maximum)
+			{
+				maximum = absY[jj];
+				maxInd = jj;
+			}
+		}
+		for (int div = 6; div > 1; div--)
+		{
+			if (maxInd > nearest / 2)
+			{
+				if (absY[(int)Math.Floor((double)(nearest - maxInd) / div)] / absY[(maxInd)] > 0.10)
+				{
+					maxInd = (nearest - maxInd) / div;
+				}
+			}else{
+				if (absY[(int)Math.Floor((double)maxInd / div)] / absY[(maxInd)] > 0.10)
+				{
+					maxInd = maxInd / div;
+				}
+			}
+		}
+		if (maxInd > nearest / 2)
+		{
+			pitches.Add((nearest - maxInd) * waveIn.SampleRate / nearest);
+		}else{
+			pitches.Add(maxInd * waveIn.SampleRate / nearest);
+		}
+	}

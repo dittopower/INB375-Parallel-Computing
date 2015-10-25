@@ -19,6 +19,7 @@ namespace WpfApplication1
         private int N;
         private float[][] Y;
         private Complex[] xxx;
+        Core core = new Core();
 
         public timefreq(float[] x, int windowSamp)
         {
@@ -27,12 +28,12 @@ namespace WpfApplication1
             double pi = 3.14159265;
             Complex i = Complex.ImaginaryOne;
             this.wSamp = windowSamp;
-            Core.twiddles = new Complex[wSamp];
+            core.twiddles = new Complex[wSamp];
             Time timer = new Time();
             for (ii = 0; ii < wSamp; ii++)
             {
                 double a = 2 * pi * ii / (double)wSamp;
-                Core.twiddles[ii] = Complex.Pow(Complex.Exp(-i), (float)a);
+                core.twiddles[ii] = Complex.Pow(Complex.Exp(-i), (float)a);
             }
             //timer.next("timefreq - 1");
             timeFreqData = new float[wSamp / 2][];
@@ -166,7 +167,7 @@ namespace WpfApplication1
                     temp[jj] = xxx[ii * (wSamp / 2) + jj];
                 }
 
-                tempFFT = Core.fft(temp, wSamp);
+                tempFFT = core.fft(temp, wSamp);
 
                 for (int kk = 0; kk < wSamp / 2; kk++)
                 {

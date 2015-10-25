@@ -86,21 +86,18 @@ namespace DigitalMusicParallelNogui
 
         // Onset Detection function - Determines Start and Finish times of a note and the frequency of the note over each duration.
         private static float[] HFC;
+        private static List<int> lengths;
+        private static double pi = 3.14159265;
+        private static Complex i = Complex.ImaginaryOne;
+        private static List<int> noteStarts;
+        private static List<double>[] allpitches;
         public static void onsetDetection()
         {
             Time timer = new Time();
             int starts = 0;
             int stops = 0;
-            Complex[] Y;
-            double[] absY;
-            List<int> lengths;
-            List<int> noteStarts;
             List<int> noteStops;
             List<double> pitches;
-
-            int ll;
-            double pi = 3.14159265;
-            Complex i = Complex.ImaginaryOne;
 
             noteStarts = new List<int>(100);
             noteStops = new List<int>(100);
@@ -164,85 +161,19 @@ namespace DigitalMusicParallelNogui
             }
             timer.next("Onset loop 4");
 
-            for (int mm = 0; mm < lengths.Count; mm++)
+            allpitches = new List<double>[Num_threads];
+            for (int a = 0; a < Num_threads; a++)
             {
-                //Time timermm = new Time();
-                int nearest = (int)Math.Pow(2, Math.Ceiling(Math.Log(lengths[mm], 2)));
-                Core.twiddles = new Complex[nearest];
-                for (ll = 0; ll < nearest; ll++)
-                {
-                    double a = 2 * pi * ll / (double)nearest;
-                    Core.twiddles[ll] = Complex.Pow(Complex.Exp(-i), (float)a);
-                }
-                //timermm.next("Onset mm - ll");
-
-                compX = new Complex[nearest];
-                for (int kk = 0; kk < nearest; kk++)
-                {
-                    if (kk < lengths[mm] && (noteStarts[mm] + kk) < waveIn.wave.Length)
-                    {
-                        compX[kk] = waveIn.wave[noteStarts[mm] + kk];
-                    }
-                    else
-                    {
-                        compX[kk] = Complex.Zero;
-                    }
-                }
-                // timermm.next("Onset mm - kk");
-
-                Y = new Complex[nearest];
-                
-                Y = Core.fft(compX, nearest);
-                //     timermm.next("Onset mm - Y = fft");
-
-                absY = new double[nearest];
-
-                double maximum = 0;
-                int maxInd = 0;
-
-                for (int jj = 0; jj < Y.Length; jj++)
-                {
-                    absY[jj] = Y[jj].Magnitude;
-                    if (absY[jj] > maximum)
-                    {
-                        maximum = absY[jj];
-                        maxInd = jj;
-                    }
-                }
-                //   timermm.next("Onset mm - jj");
-
-                for (int div = 6; div > 1; div--)
-                {
-
-                    if (maxInd > nearest / 2)
-                    {
-                        if (absY[(int)Math.Floor((double)(nearest - maxInd) / div)] / absY[(maxInd)] > 0.10)
-                        {
-                            maxInd = (nearest - maxInd) / div;
-                        }
-                    }
-                    else
-                    {
-                        if (absY[(int)Math.Floor((double)maxInd / div)] / absY[(maxInd)] > 0.10)
-                        {
-                            maxInd = maxInd / div;
-                        }
-                    }
-                }
-                //   timermm.next("Onset mm - div");
-
-                if (maxInd > nearest / 2)
-                {
-                    pitches.Add((nearest - maxInd) * waveIn.SampleRate / nearest);
-                }
-                else
-                {
-                    pitches.Add(maxInd * waveIn.SampleRate / nearest);
-                }
-                //   timermm.next("Onset mm - last");
-
-
+                allpitches[a] = new List<double>();
+                mine[a] = new Thread(onsetloopmm);
+                mine[a].Start(a);
             }
+            for (int a = 0; a < Num_threads; a++)
+            {
+                mine[a].Join();
+                pitches.AddRange(allpitches[a]);
+            }
+
             timer.next("onset mm loop");
 
             musicNote[] noteArray;
@@ -319,6 +250,96 @@ namespace DigitalMusicParallelNogui
             }
         }
 
+        private static void onsetloopmm(object tid)
+        {
+            int id = (int)tid;
+            int blocksize = (lengths.Count + Num_threads - 1) / Num_threads;
+
+            int lowerbound = id * blocksize;
+            int upperbound = Math.Min(lowerbound + blocksize, lengths.Count);
+            Complex[] Y;
+            double[] absY;
+            Complex[] compX;
+
+            for (int mm = lowerbound; mm < upperbound; mm++)
+            {
+                //Time timermm = new Time();
+                int nearest = (int)Math.Pow(2, Math.Ceiling(Math.Log(lengths[mm], 2)));
+                Core core = new Core();
+                core.twiddles = new Complex[nearest];
+                for (int ll = 0; ll < nearest; ll++)
+                {
+                    double a = 2 * pi * ll / (double)nearest;
+                    core.twiddles[ll] = Complex.Pow(Complex.Exp(-i), (float)a);
+                }
+                //timermm.next("Onset mm - ll");
+
+                compX = new Complex[nearest];
+                for (int kk = 0; kk < nearest; kk++)
+                {
+                    if (kk < lengths[mm] && (noteStarts[mm] + kk) < waveIn.wave.Length)
+                    {
+                        compX[kk] = waveIn.wave[noteStarts[mm] + kk];
+                    }
+                    else
+                    {
+                        compX[kk] = Complex.Zero;
+                    }
+                }
+                // timermm.next("Onset mm - kk");
+
+                Y = new Complex[nearest];
+
+                Y = core.fft(compX, nearest);
+                //     timermm.next("Onset mm - Y = fft");
+
+                absY = new double[nearest];
+
+                double maximum = 0;
+                int maxInd = 0;
+
+                for (int jj = 0; jj < Y.Length; jj++)
+                {
+                    absY[jj] = Y[jj].Magnitude;
+                    if (absY[jj] > maximum)
+                    {
+                        maximum = absY[jj];
+                        maxInd = jj;
+                    }
+                }
+                //   timermm.next("Onset mm - jj");
+
+                for (int div = 6; div > 1; div--)
+                {
+
+                    if (maxInd > nearest / 2)
+                    {
+                        if (absY[(int)Math.Floor((double)(nearest - maxInd) / div)] / absY[(maxInd)] > 0.10)
+                        {
+                            maxInd = (nearest - maxInd) / div;
+                        }
+                    }
+                    else
+                    {
+                        if (absY[(int)Math.Floor((double)maxInd / div)] / absY[(maxInd)] > 0.10)
+                        {
+                            maxInd = maxInd / div;
+                        }
+                    }
+                }
+                //   timermm.next("Onset mm - div");
+
+                if (maxInd > nearest / 2)
+                {
+                    allpitches[id].Add((nearest - maxInd) * waveIn.SampleRate / nearest);
+                }
+                else
+                {
+                    allpitches[id].Add(maxInd * waveIn.SampleRate / nearest);
+                }
+                //   timermm.next("Onset mm - last");
+            }
+        }
 
         // FFT function for Pitch Detection
         public static musicNote[] readXML(string filename)
