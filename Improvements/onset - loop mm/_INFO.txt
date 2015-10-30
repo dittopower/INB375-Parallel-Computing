@@ -1,4 +1,4 @@
-This is the 1st loop of onsetDetection. Populates HFC
+This is the main loop of onsetDetection.
 
 Normal
 ---------------------------------------
